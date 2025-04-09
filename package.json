@@ -1,0 +1,26 @@
+{
+  "name": "pokedex_git",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/panu-kangas/pokedex_git.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/panu-kangas/pokedex_git/issues"
+  },
+  "homepage": "https://github.com/panu-kangas/pokedex_git#readme",
+  "description": "",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.13.2"
+  }
+}
