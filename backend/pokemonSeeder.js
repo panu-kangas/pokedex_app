@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 import axios from 'axios';
 import Pokemon from './models/Pokemon.js';
+import dotenv from 'dotenv';
 
-const MONGO_URI = 'mongodb://localhost:27017/pokedex';
+dotenv.config();
+
+const MONGO_URI = process.env.MONGO_URI;
 
 const seedPokemons = async () => {
   try {

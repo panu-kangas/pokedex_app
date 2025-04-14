@@ -7,7 +7,7 @@ const Screen = ({ currentId }) => {
   useEffect(() => {
     const fetchPokemon = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/pokemon/${currentId}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/pokemon/${currentId}`);
         const data = await response.json();
         setPokemon(data);
       } catch (error) {
@@ -28,6 +28,7 @@ const Screen = ({ currentId }) => {
         id={`#${pokemon.id}`}
         name={pokemon.name}
         image={pokemon.sprite}
+		type={pokemon.types}
       />
     </div>
   );
