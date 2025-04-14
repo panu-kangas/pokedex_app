@@ -2,24 +2,24 @@ import chalk from 'chalk';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import Pokemon from './models/Pokemon.js';
+import dotenv from 'dotenv';
 
+import Pokemon from './models/Pokemon.js';
 import { startMsg, endMsg } from './serverMessages.js';
+ 
+dotenv.config();
 
 // SERVER STUFF
 
 const app = express();
-const port = 5000;
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
 
-app.use(cors({
-	origin: 'http://localhost:3000',
-  }));
+app.use(cors());
 
-mongoose.connect('mongodb://localhost:27017/pokedex')
+mongoose.connect(MONGO_URI)
 	.then(() => console.log('\n\n🧠 Connected to MongoDB'))
 	.catch(err => console.log(err));
-
-
 
 app.get('/api/pokemon/:id', async (req, res) => {
 	try {
@@ -35,8 +35,8 @@ app.get('/api/pokemon/:id', async (req, res) => {
 	});
 
 
-const server = app.listen(port, () => {
-    startMsg(port);
+const server = app.listen(PORT, () => {
+    startMsg(PORT);
 });
 
 

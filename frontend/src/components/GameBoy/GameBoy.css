@@ -41,9 +41,9 @@
 	background-color: #333;
 	border: 2px solid #999;
 	color: white;
-	padding: 15px 20px; /* Increase button size */
+	padding: 15px 20px;
 	border-radius: 50%;
-	font-size: 24px; /* Make text inside buttons bigger */
+	font-size: 24px;
 	cursor: pointer;
 	box-shadow: 0 3px #000;
 	transition: transform 0.1s ease;
@@ -57,7 +57,6 @@
   
   /* Pokémon Info Card inside the screen */
 .info-card {
-	background-color: #8a8484;
 	border-radius: 12px;
 	width: 100%; /* Smaller width than screen */
 	height: 100%; /* Smaller height than screen */
@@ -72,9 +71,9 @@
   
   /* Position the ID above the image */
   .pokemon-id {
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bold;
-	color: #333;
+	color: #1a1a1a;
 	position: relative;
   	top: 12px; /* Moves the element down by 10px */
   }
@@ -87,9 +86,9 @@
   
   /* Name of the Pokémon */
   .pokemon-name {
-	font-size: 18px;
+	font-size: 25px;
 	font-weight: bold;
-	color: #0f0; /* Pokémon green-like color */
+	color: #1a1a1a;
 	text-transform: uppercase;
 	position: relative;
   	bottom: 12px; /* Moves the element down by 10px */
