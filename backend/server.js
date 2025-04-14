@@ -23,6 +23,10 @@ mongoose.connect(MONGO_URI)
 	.then(() => console.log('\n\n🧠 Connected to MongoDB'))
 	.catch(err => console.log(err));
 
+
+console.log('Connecting to MongoDB at:', MONGO_URI);
+
+
 app.get('/api/pokemon/:id', async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -40,6 +44,7 @@ app.get('/api/pokemon/:id', async (req, res) => {
 const server = app.listen(PORT, () => {
     startMsg(PORT);
 });
+
 
 
 // SIGINT handler

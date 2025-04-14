@@ -16,7 +16,7 @@ export function startMsg(port)
 	process.stdout.write(chalk.green('       ******\n\
 ******       '));
 		
-	process.stdout.write(`http://localhost:${port}`);
+	process.stdout.write(`${port}`);
 
 	process.stdout.write(chalk.green('      ******\n\
 ******                                  ******\n\
