@@ -1,31 +1,64 @@
 # Pokédex App
 
-The Pokédex App is a database-driven application designed to provide comprehensive information on the original 151 Pokémon characters. 
-Developed as a portfolio project, it features a user-friendly interface to browse and search through various Pokémon entries.  
+The **Pokédex App** is a full-stack, database-driven application that provides comprehensive information on the original 151 Pokémon.  
+Developed as a portfolio project, it features a clean and responsive user interface that allows users to browse and explore Pokémon entries.
 
-⚠️ **Important Note**  
-This project is still under development, so it is not polished nor does it have all the planned features available.  
-Installation and user guidance coming soon!
+---
 
-## Features
+⚠️ **Note**
+1. This project is currently under development and may be missing planned features or polish.
+2. The application might load slowly at first due to the backend being hosted on Render's free tier, which can cause initial cold starts.
 
-- **Pokémon Database**: Access detailed information on a wide range of Pokémon species.
-- **Responsive Design**: Enjoy a seamless experience across different devices.
-- **Search Functionality**: (UNDER CONSTRUCTION) Easily search for Pokémon by name, type, or other attributes.
+---
+
+### 🚀 Live Application
+
+🔗 [pokedex-app-seven-tan.vercel.app](https://pokedex-app-seven-tan.vercel.app/)
+
+---
+
+## ✨ Features
+
+- **Pokémon Database**  
+  View detailed stats and descriptions of the original Generation I Pokémon.
+
+---
+
+## 🔧 Features in Development
+
+- **Search Functionality**  
+  *(Under Construction)* — Search Pokémon by name, type, size, and other attributes.
+
+- **Pokémon Data Analyzer**  
+  *(Under Construction)* — Visualize insights like the distribution of Pokémon types, average sizes, and more.
+
+---
+
+## 🛠 Technologies Used
+
+### Frontend
+- JavaScript (React)
+
+### Backend
+- Node.js (Express)
+
+### Database
+- MongoDB
+
+---
+
+## ☁️ Deployment & Hosting
+
+This app is deployed using the following services:
+
+[![Vercel](https://img.shields.io/badge/Vercel-Hosting-black?logo=vercel)](https://vercel.com)
+[![Render](https://img.shields.io/badge/Render-Cloud-blue?logo=render)](https://render.com)
+[![MongoDB Atlas](https://img.shields.io/badge/MongoDB_Atlas-Database-green?logo=mongodb)](https://www.mongodb.com/cloud/atlas)
+
+---
+
+⚠️ **Disclaimer**  
+This application is for educational purposes only.  
+It uses data provided by the public [PokéAPI](https://pokeapi.co/).
 
 
-## Technologies Used
-
-- **Frontend**:
-  - JavaScript with React-framework
-- **Backend**:
-  - Node.js with Express-framework
-- **Database**:
-  - MongoDB
-
-## Installation
-
-Installation instructions coming soon!
-
-⚠️ **FYI**  
-This app is for educational purposes only and uses data from the public PokéAPI.
