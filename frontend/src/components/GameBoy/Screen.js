@@ -21,7 +21,7 @@ const Screen = ({ currentId }) => {
 
 		  const timer2 = setTimeout (() => {
 			setIdChange(false);
-		  }, 500);
+		  }, 600);
 
 		  return () => {
 			clearTimeout(timer);

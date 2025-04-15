@@ -156,8 +156,8 @@
 	width: 60%; /* Adjust size of the image */
 	height: auto;
 	z-index: 2;
-	opacity: 1; /* Initially invisible */
-	transition: opacity 0.2s ease-in-out;
+	opacity: 1;
+	transition: opacity 0.3s ease-in-out;
   }
 
   .pokemon-image.fade {
