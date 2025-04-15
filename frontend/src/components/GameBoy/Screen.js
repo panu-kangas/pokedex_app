@@ -37,7 +37,7 @@ const Screen = ({ currentId }) => {
     fetchPokemon();
   }, [currentId]);
 
-  if (!pokemon) {
+  if (!pokemon || pokemon) {
     return (
 	<div className="screen">
 		<div className="pokeball ball1" style={{ backgroundImage: `url(${pokeballImage})` }}></div>
@@ -49,7 +49,8 @@ const Screen = ({ currentId }) => {
 			<span className="dot dot2">.</span>
 			<span className="dot dot3">.</span>
 			<br/><br/>
-			This might take few seconds... 
+			This might take some time,
+			<br/>max 50 seconds... 
 			<br/>
 			The backend is sleeping like a Snorlax...
 		</div>
