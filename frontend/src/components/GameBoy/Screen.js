@@ -37,7 +37,7 @@ const Screen = ({ currentId }) => {
     fetchPokemon();
   }, [currentId]);
 
-  if (!pokemon || pokemon) {
+  if (!pokemon) {
     return (
 	<div className="screen">
 		<div className="pokeball ball1" style={{ backgroundImage: `url(${pokeballImage})` }}></div>
