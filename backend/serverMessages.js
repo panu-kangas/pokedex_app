@@ -14,11 +14,11 @@ export function startMsg(port)
 	process.stdout.write('Server running at:');
 	
 	process.stdout.write(chalk.green('       ******\n\
-******       '));
+******               '));
 		
 	process.stdout.write(`${port}`);
 
-	process.stdout.write(chalk.green('      ******\n\
+	process.stdout.write(chalk.green('               ******\n\
 ******                                  ******\n\
 **********************************************\n\
 **********************************************'));
