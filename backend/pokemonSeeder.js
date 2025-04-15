@@ -23,6 +23,12 @@ const seedPokemons = async () => {
         name: data.name,
         types: data.types.map(t => t.type.name),
         sprite: data.sprites.front_default,
+		weight: data.weight,
+		height: data.height,
+		stats: data.stats.map(stat => ({
+			statName: stat.stat.name,
+			baseStat: stat.base_stat,
+		  }))
       });
 
       console.log(`✅ Loaded ${data.name}`);

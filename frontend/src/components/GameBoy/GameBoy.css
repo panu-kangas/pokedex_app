@@ -1,9 +1,9 @@
 .gameboy-box {
 	background-color: #f7d733; /* GameBoy Pikachu yellow */
-	width: 400px; /* Increase width */
-	height: 600px; /* Increase height */
+	width: 400px;
+	height: 540px;
 	margin: 40px auto;
-	padding: 30px; /* Increase padding to fit new size */
+	padding: 30px;
 	border: 4px solid #222;
 	border-radius: 20px;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -16,8 +16,8 @@
   /* The "screen" area */
   .screen {
 	background-color: #111;
-	width: 90%; /* Adjust to fit new size */
-	height: 240px; /* Increase height of screen */
+	width: 90%; 
+	height: 240px; 
 	border: 4px inset #444;
 	border-radius: 10px;
 	display: flex;
@@ -140,6 +140,7 @@
 	text-align: center;
 	position: relative; /* This is important to position the background divs */
 	overflow: hidden; /* Prevents any overflow from secondBg */
+	transform: 0.3 ease;
   }
   
   /* Position the ID above the image */
@@ -148,7 +149,7 @@
 	font-weight: bold;
 	color: #1a1a1a;
 	position: relative;
-  	top: 12px; /* Moves the element down by 10px */
+  	top: 25px; /* Moves the element down by 10px */
 	z-index: 2;
   }
   
@@ -173,7 +174,7 @@
 	color: #1a1a1a;
 	text-transform: uppercase;
 	position: relative;
-  	bottom: 12px; /* Moves the element down by 10px */
+  	bottom: 25px; /* Moves the element down by 10px */
 	z-index: 2;
   }
   

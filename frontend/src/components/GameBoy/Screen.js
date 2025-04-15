@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import InfoCard from './InfoCard';
+import BigInfoCard from '../BigInfoCard/BigInfoCard';
 import pokeballImage from '../../assets/pokeball.png';
 
-const Screen = ({ currentId }) => {
+const Screen = ({ currentId, isBig }) => {
   const [pokemon, setPokemon] = useState(null);
   const [idChange, setIdChange] = useState(false);
-
+ 
   useEffect(() => {
     const fetchPokemon = async () => {
       try {
@@ -60,13 +61,18 @@ const Screen = ({ currentId }) => {
 
   return (
     <div className="screen">
-      <InfoCard
-        id={`#${pokemon.id}`}
-        name={pokemon.name}
-        image={pokemon.sprite}
-		type={pokemon.types}
-		idChange={idChange}
-      />
+		<div className={`info-card ${isBig ? 'card-hidden' : 'card-visible'}`}>
+			<InfoCard
+				id={`#${pokemon.id}`}
+				name={pokemon.name}
+				image={pokemon.sprite}
+				type={pokemon.types}
+				idChange={idChange}
+			/>
+		</div>
+		<div className={`big-info-card-div ${!isBig ? 'card-hidden' : 'card-visible'}`}>
+			<BigInfoCard pokemon={pokemon} />
+		</div>
     </div>
   );
 };

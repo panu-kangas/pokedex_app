@@ -5,6 +5,7 @@ import './GameBoy.css';
 
 const GameBoy = () => {
   const [currentId, setCurrentId] = useState(1);
+  const [isBig, setIsBig] = useState(false);
 
   const handleNext = () => {
     if (currentId < 151) setCurrentId(currentId + 1);
@@ -14,10 +15,16 @@ const GameBoy = () => {
     if (currentId > 1) setCurrentId(currentId - 1);
   };
 
+  const handleMoreInfo = () => {
+    setIsBig(!isBig);
+  };
+
   return (
     <div className="gameboy-box">
-      <Screen currentId={currentId} />
-      <ButtonRow onNext={handleNext} onPrev={handlePrev} />
+      <Screen currentId={currentId} isBig={isBig} />
+      <ButtonRow 
+	  	onNext={handleNext} onPrev={handlePrev} onMoreInfo={handleMoreInfo} isBig={isBig} 
+	  />
     </div>
   );
 };
