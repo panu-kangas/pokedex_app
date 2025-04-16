@@ -1,30 +1,31 @@
 .main-header {
-	background-color: #fff; /* or keep it yellow if you prefer */
+	background-color: #3399ff; /* or keep it yellow if you prefer */
 	padding: 40px 20px;
   }
   
-  .main-title {
-	  font-size: 90px;
-	  color: #ffcc00;
-	  -webkit-text-stroke: 2px #3399ff;
-	  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-	  
-	  /* Border box around the text */
-	  border: 2px solid #3399ff;
-	  padding: 10px 20px;
-	  border-radius: 10px;
-	  box-shadow: 0 0 4px #3399ff, 0 0 10px #3399ff;
-	  
-	  /* Layout */
-	  display: inline-block;
-	  margin-bottom: 10px;
-	}
+.main-title {
+	font-size: 90px;
+	color: #ffcc00;
+	-webkit-text-stroke: 2px #3399ff;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+	
+	/* Border box around the text */
+	border: 2px solid #3399ff;
+	padding: 10px 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 4px #fff, 0 0 10px #fff;
+	background-color: #fff;
+	
+	/* Layout */
+	display: inline-block;
+	margin-bottom: 10px;
+}
 
-	.subtitle {
-	  font-size: 16px;
-	  font-style: italic;
-	  color: #444;
-	  margin-top: 12px;
-	  letter-spacing: 1px;
-	  opacity: 0.8;
-	}
+.subtitle {
+	font-size: 16px;
+	font-style: italic;
+	color: #444;
+	margin-top: 12px;
+	letter-spacing: 1px;
+	opacity: 0.8;
+}

@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import typeColors from '../../types/typeConfig';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, BarElement, Title, Tooltip, Legend, LinearScale } from 'chart.js';
+import './TypesCountChart.css';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  LinearScale,
+} from 'chart.js';
 
-// Register Chart.js components
 ChartJS.register(CategoryScale, BarElement, LinearScale, Title, Tooltip, Legend);
 
 const TypesCountChart = () => {
   const [data, setData] = useState(null);
+  const chartRef = useRef(null);
 
   useEffect(() => {
-    // Fetch data from the API
     const fetchData = async () => {
       const response = await fetch('/api/types-count');
       const result = await response.json();
@@ -19,29 +27,29 @@ const TypesCountChart = () => {
 
     fetchData();
 
-	return () => {
-		const chart = ChartJS.instances.get('pokemon-type-chart');
-		if (chart) {
-		  chart.destroy();
-		}
-	  };
+    return () => {
+      // Access the actual chart instance via ref
+      if (chartRef.current) {
+        chartRef.current.destroy();
+      }
+    };
   }, []);
 
-
   if (!data) {
-    return <div>Loading...</div>; // FIX THIS LATER
+    return <div>Loading...</div>;
   }
 
-  // Prepare data for the chart
+  const sortedKeys = Object.keys(data).sort();
+
+
   const chartData = {
-    labels: Object.keys(data),
-    datasets: [
+	labels: sortedKeys.map(
+		type => type.charAt(0).toUpperCase() + type.slice(1)
+	  ), 
+	datasets: [
       {
-        label: 'Number of Pokémon per Type',
-        data: Object.values(data),
-        backgroundColor: Object.keys(data).map(type => {
-			return typeColors[type];
-		  }),
+        data: sortedKeys.map(type => data[type]),
+        backgroundColor: sortedKeys.map(type => typeColors[type]),
         borderColor: 'rgb(6, 30, 30)',
         borderWidth: 1,
       },
@@ -52,31 +60,57 @@ const TypesCountChart = () => {
     responsive: true,
     plugins: {
       title: {
-        display: true,
-        text: 'Pokémon Type Counts (Original 151)',
+        display: false,
+        text: 'The type distribution of the original 151 Pokémon',
+		font: {
+			size: 20,        // 👈 Font size in pixels
+			weight: 'bold',  // 👈 You can use 'normal', 'bold', or even 400, 700, etc.
+			family: 'Arial', // 👈 Optional: custom font family
+		  },
+		  color: '#333',       // 👈 Title text color
+		  align: 'center',
       },
+	  legend: {
+		display: false,
+	  },
     },
     scales: {
       y: {
-		type: 'linear',
+        type: 'linear',
         beginAtZero: true,
         ticks: {
-          stepSize: 5,
+          stepSize: 4,
         },
       },
     },
   };
 
-  const chartStyle = {
-	width: '80%',
-	margin: '0 auto',
-  }
+  const maxType = Object.entries(data).reduce((max, entry) =>
+	entry[1] > max[1] ? entry : max
+  )[0];
+
+  const minType = Object.entries(data).reduce((min, entry) =>
+	entry[1] < min[1] ? entry : min
+  )[0];
 
   return (
-    <div>
-    	<h2>Pokémon Type Distribution</h2>
-		<div className="chart-container" style={ chartStyle }>
-			<Bar id="pokemon-type-chart" data={chartData} options={chartOptions} />
+    <div className="facts-container">
+		<div className="types-count-container">
+			<h2 className="chart-header">Type Distribution</h2>
+			<div className="chart-container">
+				<Bar ref={chartRef} data={chartData} options={chartOptions} />
+			</div>
+		</div>
+		<div className="info-text-container">
+			<h2 className="chart-header">Fun facts</h2>
+			<p>The most common type in Gen I Pokémon is: </p>
+			<span style={{ color: typeColors[maxType] }}>
+				{maxType.charAt(0).toUpperCase() + maxType.slice(1)}
+			</span>
+			<p>The most rare type in Gen I Pokémon is: </p>
+			<span style={{ color: typeColors[minType] }}>
+				{minType.charAt(0).toUpperCase() + minType.slice(1)}
+			</span>
 		</div>
     </div>
   );

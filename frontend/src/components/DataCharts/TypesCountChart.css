@@ -1,0 +1,32 @@
+.facts-container {
+	display: flex;
+	gap: 0px; 
+	justify-content: space-between;
+}
+
+.types-count-container {
+	border: 2px solid #01070e;
+	width: 60%;
+	margin: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.info-text-container {
+	border: 2px solid #01070e;
+	width: 40%;
+	margin: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.chart-header {
+	font-size: 50px;
+	color: #2f2708;
+}
+
+.chart-container {
+	width: 100%;
+	height: 100%;
+    margin: 0 auto;
+}
