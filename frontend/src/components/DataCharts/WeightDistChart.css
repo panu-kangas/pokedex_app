@@ -1,0 +1,42 @@
+.facts-container-2 {
+	display: flex;
+	gap: 0px; 
+	justify-content: space-between;
+	background-color: #4c9ef1;
+	margin: 15px;
+}
+
+.weight-dist-container {
+	width: 60%;
+	height: 500px;
+	margin: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.info-text-container-2 {
+	border: 2px dotted black;
+	width: 40%;
+	margin: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: #1573d1;
+}
+
+.chart-header-2 {
+	font-size: 50px;
+	color: #2f2708;
+}
+
+.chart-container-2 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 60%;
+	height: 70%;
+    margin: 0 auto;
+}
+
+.fact-paragraph-2 {
+	line-height: 2.0;
+}

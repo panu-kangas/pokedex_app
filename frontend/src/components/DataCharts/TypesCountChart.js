@@ -11,6 +11,7 @@ import {
   Legend,
   LinearScale,
 } from 'chart.js';
+import { motion } from 'framer-motion';
 
 ChartJS.register(CategoryScale, BarElement, LinearScale, Title, Tooltip, Legend);
 
@@ -27,10 +28,11 @@ const TypesCountChart = () => {
 
     fetchData();
 
+	const chartInstance = chartRef.current;
+
     return () => {
-      // Access the actual chart instance via ref
-      if (chartRef.current) {
-        chartRef.current.destroy();
+      if (chartInstance) {
+        chartInstance.destroy();
       }
     };
   }, []);
@@ -58,6 +60,7 @@ const TypesCountChart = () => {
 
   const chartOptions = {
     responsive: true,
+	maintainAspectRatio: false, // ✅ this is key!
     plugins: {
       title: {
         display: false,
@@ -88,13 +91,22 @@ const TypesCountChart = () => {
   const maxType = Object.entries(data).reduce((max, entry) =>
 	entry[1] > max[1] ? entry : max
   )[0];
+  const maxText = `The most common type (with ${data[maxType]} Pokémon) is:`
 
   const minType = Object.entries(data).reduce((min, entry) =>
 	entry[1] < min[1] ? entry : min
   )[0];
+  const minText = `The most rare type (with ${data[minType]} Pokémon) is:`
+
 
   return (
-    <div className="facts-container">
+    <motion.div
+      className="facts-container"
+      initial={{ x: -100, opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
+    >
 		<div className="types-count-container">
 			<h2 className="chart-header">Type Distribution</h2>
 			<div className="chart-container">
@@ -103,16 +115,20 @@ const TypesCountChart = () => {
 		</div>
 		<div className="info-text-container">
 			<h2 className="chart-header">Fun facts</h2>
-			<p>The most common type in Gen I Pokémon is: </p>
-			<span style={{ color: typeColors[maxType] }}>
-				{maxType.charAt(0).toUpperCase() + maxType.slice(1)}
-			</span>
-			<p>The most rare type in Gen I Pokémon is: </p>
-			<span style={{ color: typeColors[minType] }}>
-				{minType.charAt(0).toUpperCase() + minType.slice(1)}
-			</span>
+			<p className="fact-paragraph"> {maxText}
+				<br/>
+				<span style={{ padding: '5px', borderRadius: '10px', color: 'white', backgroundColor: typeColors[maxType] }}>
+					{maxType.charAt(0).toUpperCase() + maxType.slice(1)}
+				</span>
+			</p>
+			<p className="fact-paragraph"> {minText}
+				<br/>
+				<span style={{ padding: '5px', borderRadius: '10px', color: 'white', backgroundColor: typeColors[minType] }}>
+					{minType.charAt(0).toUpperCase() + minType.slice(1)}
+				</span>
+			</p>
 		</div>
-    </div>
+    </motion.div>
   );
 };
 

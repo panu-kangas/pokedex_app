@@ -62,7 +62,34 @@ app.get('/api/types-count', async (req, res) => {
 	} catch (err) {
 		res.status(500).json({ message: 'Error fetching Pokémon', error: err });
 	}
+});
 
+app.get('/api/weight-dist', async (req, res) => {
+	
+	const weightDist = {
+		small: 0,
+		medium: 0,
+		large: 0
+	};
+
+	try {
+		const data = await Pokemon.find({});
+		if (!data)
+			return res.status(404).json({ message: 'Pokémon data not accessible' });
+
+		data.forEach( item => {
+			if (item.weight / 10 <= 30)
+				weightDist['small'] += 1;
+			else if (item.weight / 10 > 70)
+				weightDist['large'] += 1;
+			else
+			weightDist['medium'] += 1;
+		})
+		res.json(weightDist);
+
+	} catch (err) {
+		res.status(500).json({ message: 'Error fetching Pokémon', error: err });
+	}
 });
 
 
