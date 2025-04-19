@@ -9,14 +9,21 @@ import './MainPage.css';
 const MainPage = () => {
   return (
     <div className="main-container">
-      <Header />
-	  <hr className="type-divider" />
-	  <SectionHeader text='Pokémon Viewer'/>
-	  <GameBoy />
-	  <hr className="type-divider" />
-	  <SectionHeader text='Pokémon Facts'/>
-	  <TypesCountChart />
-	  <WeightDistChart />
+		<Header />
+		<div className="firstInfoBox">
+			<span className="welcomeText">Welcome!</span>
+			<span className="infoText">
+			This is a little page dedicated to Gen I Pokémon. <br/>
+			Take your time, have fun, and enjoy your stay! 😊
+			</span>
+		</div>
+		<hr className="type-divider" />
+		<SectionHeader text='Pokémon Viewer'/>
+		<GameBoy />
+		<hr className="type-divider" />
+		<SectionHeader text='Pokémon Facts'/>
+		<TypesCountChart />
+		<WeightDistChart />
     </div>
   );
 };

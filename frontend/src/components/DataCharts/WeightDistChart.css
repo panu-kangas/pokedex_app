@@ -1,4 +1,4 @@
-.facts-container-2 {
+.facts-container2 {
 	display: flex;
 	gap: 0px; 
 	justify-content: space-between;
@@ -6,7 +6,7 @@
 	margin: 15px;
 }
 
-.weight-dist-container {
+.chart-container2 {
 	width: 60%;
 	height: 500px;
 	margin: 10px;
@@ -14,21 +14,21 @@
 	padding-right: 20px;
 }
 
-.info-text-container-2 {
+.fun-fact-container2 {
 	border: 2px dotted black;
 	width: 40%;
 	margin: 10px;
 	padding-left: 20px;
 	padding-right: 20px;
-	background-color: #1573d1;
+	background-color: #79b7f5;
 }
 
-.chart-header-2 {
-	font-size: 50px;
+.chart-header2 {
+	font-size: 40px;
 	color: #2f2708;
 }
 
-.chart-container-2 {
+.chart-wrapper2 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -39,4 +39,5 @@
 
 .fact-paragraph-2 {
 	line-height: 2.0;
+	padding: 20px;
 }

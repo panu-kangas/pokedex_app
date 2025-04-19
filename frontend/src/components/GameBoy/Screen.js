@@ -18,11 +18,11 @@ const Screen = ({ currentId, isBig }) => {
 			const response = await fetch(`${process.env.REACT_APP_API_URL}/api/pokemon/${currentId}`);
 			const data = await response.json();
 			setPokemon(data);
-		  }, 300);
+		  }, 400);
 
 		  const timer2 = setTimeout (() => {
 			setIdChange(false);
-		  }, 600);
+		  }, 700);
 
 		  return () => {
 			clearTimeout(timer);

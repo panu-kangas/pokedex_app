@@ -11,3 +11,30 @@
 	width: 70%;
 	border-radius: 8px;
   }
+
+.firstInfoBox {
+	border: 3px dashed #f7d733;
+	box-shadow: 0px 0px 8px black;
+	border-radius: 4px;
+	width: 50%;
+	height: 200px;
+	margin: 30px auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+}
+
+.welcomeText {
+  font-weight: bold;
+  font-size: 40px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  color: black;
+}
+
+.infoText {
+  font-size: 20px;
+  color: #222;
+}

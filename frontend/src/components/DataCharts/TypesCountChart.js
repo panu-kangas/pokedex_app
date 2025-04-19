@@ -60,19 +60,8 @@ const TypesCountChart = () => {
 
   const chartOptions = {
     responsive: true,
-	maintainAspectRatio: false, // ✅ this is key!
+	maintainAspectRatio: false, 
     plugins: {
-      title: {
-        display: false,
-        text: 'The type distribution of the original 151 Pokémon',
-		font: {
-			size: 20,        // 👈 Font size in pixels
-			weight: 'bold',  // 👈 You can use 'normal', 'bold', or even 400, 700, etc.
-			family: 'Arial', // 👈 Optional: custom font family
-		  },
-		  color: '#333',       // 👈 Title text color
-		  align: 'center',
-      },
 	  legend: {
 		display: false,
 	  },
@@ -101,20 +90,20 @@ const TypesCountChart = () => {
 
   return (
     <motion.div
-      className="facts-container"
+      className="fact-container1"
       initial={{ x: -100, opacity: 0 }}
       whileInView={{ x: 0, opacity: 1 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
     >
-		<div className="types-count-container">
-			<h2 className="chart-header">Type Distribution</h2>
-			<div className="chart-container">
+		<div className="chart-container1">
+			<h2 className="chart-header1">Type Distribution</h2>
+			<div className="chart-wrapper1">
 				<Bar ref={chartRef} data={chartData} options={chartOptions} />
 			</div>
 		</div>
-		<div className="info-text-container">
-			<h2 className="chart-header">Fun facts</h2>
+		<div className="fun-fact-container1">
+			<h2 className="chart-header1">Fun facts</h2>
 			<p className="fact-paragraph"> {maxText}
 				<br/>
 				<span style={{ padding: '5px', borderRadius: '10px', color: 'white', backgroundColor: typeColors[maxType] }}>
