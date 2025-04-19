@@ -24,7 +24,7 @@ const WeightDistChart = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('/api/weight-dist');
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/weight-dist`);
       const result = await response.json();
       setData(result);
     };
