@@ -21,7 +21,7 @@ const TypesCountChart = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('/api/types-count');
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/types-count`);
       const result = await response.json();
       setData(result);
     };
