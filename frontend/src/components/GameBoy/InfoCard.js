@@ -1,7 +1,8 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import typeColors from '../../types/typeConfig';
 
 const InfoCard = ({ id, name, image, type, idChange }) => {
+	const [isLoaded, setIsLoaded] = useState(false);
 	
 	let backgroundStyle;
 	let secondBg;
@@ -10,21 +11,21 @@ const InfoCard = ({ id, name, image, type, idChange }) => {
 	const [type1, type2] = type;
 	backgroundStyle = {
 		backgroundColor: typeColors[type1] || '#777',
-		transition: 'background 0.8s ease', // Smooth transition for the background
+		transition: 'background 0.8s ease', 
 	  };
 	  secondBg = {
 		backgroundColor: typeColors[type2] || '#777',
-		width: '50%', // The second background takes up the other 50% of the width
-		height: '100%', // Full height
-		position: 'absolute', // Position it absolutely
+		width: '50%',
+		height: '100%',
+		position: 'absolute',
 		top: '0',
-		left: '50%', // Position it on the right half
-		transition: 'background 0.8s ease', // Smooth transition for the background
+		left: '50%',
+		transition: 'background 0.8s ease',
 	  };
 	} else {
 	backgroundStyle = {
 		backgroundColor: typeColors[type[0]] || '#777',
-		transition: 'background 0.8s ease', // Smooth transition for background
+		transition: 'background 0.8s ease',
 	};
 	}
 
@@ -35,7 +36,8 @@ const InfoCard = ({ id, name, image, type, idChange }) => {
 		<img
 			src={image}
 			alt={name}
-			className= {`pokemon-image ${idChange ? 'fade' : ''}`}
+			className={`pokemon-image ${idChange && isLoaded ? 'fade' : ''}`}
+			onLoad={ () => setIsLoaded(true) }
       	/>
 		<div className="pokemon-name">{name}</div>
 

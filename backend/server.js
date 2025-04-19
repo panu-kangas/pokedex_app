@@ -40,6 +40,58 @@ app.get('/api/pokemon/:id', async (req, res) => {
 	}
 	});
 
+app.get('/api/types-count', async (req, res) => {
+	
+	const typeCount = {};
+
+	try {
+		const data = await Pokemon.find({});
+		if (!data)
+			return res.status(404).json({ message: 'Pokémon data not accessible' });
+
+		data.forEach( item => {
+			item.types.forEach( type => {
+				if (typeCount[type])
+					typeCount[type] += 1;
+				else
+					typeCount[type] = 1;
+			})
+		})
+		res.json(typeCount);
+
+	} catch (err) {
+		res.status(500).json({ message: 'Error fetching Pokémon', error: err });
+	}
+});
+
+app.get('/api/weight-dist', async (req, res) => {
+	
+	const weightDist = {
+		small: 0,
+		medium: 0,
+		large: 0
+	};
+
+	try {
+		const data = await Pokemon.find({});
+		if (!data)
+			return res.status(404).json({ message: 'Pokémon data not accessible' });
+
+		data.forEach( item => {
+			if (item.weight / 10 <= 30)
+				weightDist['small'] += 1;
+			else if (item.weight / 10 > 70)
+				weightDist['large'] += 1;
+			else
+			weightDist['medium'] += 1;
+		})
+		res.json(weightDist);
+
+	} catch (err) {
+		res.status(500).json({ message: 'Error fetching Pokémon', error: err });
+	}
+});
+
 
 const server = app.listen(PORT, () => {
     startMsg(PORT);
