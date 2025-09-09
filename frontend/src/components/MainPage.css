@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
+
 .main-container {
 	text-align: center;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,28 +15,47 @@
   }
 
 .firstInfoBox {
-	border: 3px dashed #f7d733;
-	box-shadow: 0px 0px 8px black;
-	border-radius: 4px;
-	width: 50%;
-	height: 200px;
-	margin: 30px auto;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-	text-align: center;
+  background: linear-gradient(to bottom right, #fffacd, #fef4b8); /* pale yellow gradient */
+  border: 4px double #ffcb05; /* Pokémon yellow, more styled */
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), inset 0 0 10px #fff5cc;
+  border-radius: 12px;
+  width: 60%;
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  animation: fadeIn 1.2s ease-in-out;
 }
 
 .welcomeText {
-  font-weight: bold;
-  font-size: 40px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  color: black;
+  font-weight: 800;
+  font-size: 42px;
+  color: #2b2b2b;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px #fff;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 .infoText {
-  font-size: 20px;
-  color: #222;
+  font-size: 18px;
+  color: #3a3a3a;
+  line-height: 1.6;
+  max-width: 90%;
+  font-family: 'Verdana', sans-serif;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
