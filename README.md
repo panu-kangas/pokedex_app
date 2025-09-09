@@ -22,6 +22,9 @@ Developed as a portfolio project, it features a clean and responsive user interf
 - **Pokémon Database**  
   View detailed stats and descriptions of the original Generation I Pokémon.
 
+- **Pokémon Data Analyzer**  
+  Find out interesting visualized insights of Gen I Pokémon data, like the type and size distributions.
+
 ---
 
 ## 🔧 Features in Development
@@ -29,8 +32,6 @@ Developed as a portfolio project, it features a clean and responsive user interf
 - **Search Functionality**  
   *(Under Construction)* — Search Pokémon by name, type, size, and other attributes.
 
-- **Pokémon Data Analyzer**  
-  *(Under Construction)* — Visualize insights like the distribution of Pokémon types, average sizes, and more.
 
 ---
 
