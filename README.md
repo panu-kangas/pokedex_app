@@ -39,6 +39,7 @@ Developed as a portfolio project, it features a clean and responsive user interf
 
 ### Frontend
 - JavaScript (React)
+- CSS for styling
 
 ### Backend
 - Node.js (Express)
