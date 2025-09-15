@@ -7,7 +7,7 @@ Developed as a portfolio project, it features a clean and responsive user interf
 
 ⚠️ **Note**
 1. This project is currently under development and may be missing planned features or polish.
-2. The application might load slowly at first due to the backend being hosted on Render's free tier, which can cause initial cold starts.
+2. The Pokédex App is not optimized for mobile devices at the moment.
 
 ---
 
@@ -31,6 +31,9 @@ Developed as a portfolio project, it features a clean and responsive user interf
 
 - **Search Functionality**  
   *(Under Construction)* — Search Pokémon by name, type, size, and other attributes.
+
+- **Optimization for mobile use**  
+  *(Under Construction)* — Optimize App's UI to work better on mobile devices.
 
 
 ---
