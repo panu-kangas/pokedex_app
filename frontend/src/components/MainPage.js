@@ -4,6 +4,7 @@ import GameBoy from './GameBoy/GameBoy';
 import SectionHeader from './Header/SectionHeader';
 import TypesCountChart from './DataCharts/TypesCountChart';
 import WeightDistChart from './DataCharts/WeightDistChart';
+import SearchBar from './SearchBar/SearchBar';
 import './MainPage.css';
 
 const MainPage = () => {
@@ -24,6 +25,9 @@ const MainPage = () => {
 		<SectionHeader text='Pokémon Facts'/>
 		<TypesCountChart />
 		<WeightDistChart />
+		<hr className="type-divider" />
+		<SectionHeader text='Search for Pokémon'/>
+		<SearchBar />
     </div>
   );
 };

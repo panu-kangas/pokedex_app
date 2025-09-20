@@ -15,8 +15,8 @@
   }
 
 .firstInfoBox {
-  background: linear-gradient(to bottom right, #fffacd, #fef4b8); /* pale yellow gradient */
-  border: 4px double #ffcb05; /* Pokémon yellow, more styled */
+  background: linear-gradient(to bottom right, #fffacd, #fef4b8);
+  border: 4px double #ffcb05;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), inset 0 0 10px #fff5cc;
   border-radius: 12px;
   width: 60%;
