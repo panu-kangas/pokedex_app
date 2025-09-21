@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import typeColors from '../../types/typeConfig';
 import './SearchBar.css';
 
 
@@ -8,6 +9,7 @@ const SearchBar = () => {
 	const [pokemonList, setPokemonList] = useState([]);
 	const [firstResult, setFirstResult] = useState(false);
 
+	// API call then search is clicked
 	const clickSearch = async () => {
 		if (query.length === 0) {
 			setPokemonList([]);
@@ -24,7 +26,7 @@ const SearchBar = () => {
       }
 	}
 
-
+	// Create result-cards for each Pokemon found
 	const renderResults = () => {
 		if (!firstResult) {
 			return <p className="no-results">No results yet</p>;
@@ -34,16 +36,32 @@ const SearchBar = () => {
 			return <p className="no-results">Pokémon not found</p>;
 		}
 
-		return pokemonList.map((pokemon) => (
-			<div key={pokemon.name} className="result-card">
-				<p>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1).toLowerCase()}</p>
-				<img src={pokemon.sprite} alt={pokemon.name} />
-			</div>
-		));
+		return pokemonList.map((pokemon) => {
+
+			// Set BG colors
+			let bgColor = '';
+			let hasTwoTypes = Array.isArray(pokemon.types) && pokemon.types.length === 2;
+			if (hasTwoTypes) {
+				bgColor = { 
+					background: `linear-gradient(130deg, ${typeColors[pokemon.types[0]]} 50%, ${typeColors[pokemon.types[1]]} 50%)`,
+				}
+			}
+			else {
+				bgColor = { 
+					backgroundColor: typeColors[pokemon.types[0]],
+ 				};
+			}
+
+			return (
+				<div key={pokemon.name} style={ bgColor } className="result-card">
+					<p>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1).toLowerCase()}</p>
+					<img src={pokemon.sprite} alt={pokemon.name} />
+				</div>
+			)
+		});
 	};
 
-	
-
+	// Update query based on input
 	const handleInputChange = (event) => {
     	setQuery(event.target.value);
   	};
