@@ -54,7 +54,7 @@ const SearchBar = () => {
 
 			return (
 				<div key={pokemon.name} style={ bgColor } className="result-card">
-					<p>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1).toLowerCase()}</p>
+					<p>{"#" + pokemon.id}<br/>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1).toLowerCase()}</p>
 					<img src={pokemon.sprite} alt={pokemon.name} />
 				</div>
 			)
