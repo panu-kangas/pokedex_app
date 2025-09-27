@@ -25,15 +25,18 @@ Developed as a portfolio project, it features a clean and responsive user interf
 - **Pokémon Data Analyzer**  
   Find out interesting visualized insights of Gen I Pokémon data, like the type and size distributions.
 
+- **Search Functionality**  
+  Search for your favourite Pokémon by name. Uses regex to match also partial names.
+
 ---
 
 ## 🔧 Features in Development
 
-- **Search Functionality**  
-  *(Under Construction)* — Search Pokémon by name, type, size, and other attributes.
-
 - **Optimization for mobile use**  
   *(Under Construction)* — Optimize App's UI to work better on mobile devices.
+
+- **Search Functionality Update**  
+  *(Under Construction)* — Add other methods for searching (by id number, stats, type etc)
 
 
 ---
