@@ -3,7 +3,35 @@
 .main-container {
 	text-align: center;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: #fef8d8;
+	height: 100%;
   }
+
+
+.section-button-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.section-button-row button {
+	padding: 10px 20px;
+	font-size: 16px;
+	background-color: #3399ff;
+	color: white;
+	border: 1px solid black;
+	border-radius: 8px;
+	cursor: pointer;
+	box-shadow: 0 0 5px black;
+	transition: background-color 0.3s ease;
+}
+
+.section-button-row button:hover {
+	box-shadow: 0 0 8px black;
+	background-color: rgb(22, 139, 255);
+}
 
 .type-divider {
 	border: 0;
@@ -15,8 +43,8 @@
   }
 
 .firstInfoBox {
-  background: linear-gradient(to bottom right, #fffacd, #fef4b8); /* pale yellow gradient */
-  border: 4px double #ffcb05; /* Pokémon yellow, more styled */
+  background: linear-gradient(to bottom right, #fffacd, #fef4b8);
+  border: 4px double #ffcb05;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), inset 0 0 10px #fff5cc;
   border-radius: 12px;
   width: 60%;

@@ -10,22 +10,39 @@
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 	
 	/* Border box around the text */
-	border: 2px solid #3399ff;
+	border: 2px solid black;
 	padding: 10px 20px;
 	border-radius: 10px;
 	box-shadow: 0 0 4px #fff, 0 0 10px #fff;
-	background-color: #fff;
+	background-color: #faf7e6;
 	
 	/* Layout */
 	display: inline-block;
-	margin-bottom: 10px;
+	margin-bottom: 30px;
+}
+
+.subtitle-div {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	margin-top: 12px;
+	margin-left: 12px;
+	background-color: #a0ccff;
+	display: inline-block;
+	border-radius: 12px;
+	box-shadow: 0 0 3px black;
 }
 
 .subtitle {
-	font-size: 16px;
-	font-style: italic;
-	color: white;
-	margin-top: 12px;
+	font-size: 14px;
+	color: black;
+	margin: 12px;
 	letter-spacing: 1px;
 	opacity: 0.8;
+}
+
+.author-name {
+	color: black;
+	font-weight: bold;
+	font-size: 18px;
 }
