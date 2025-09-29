@@ -81,36 +81,38 @@ const WeightDistChart = () => {
 
 
   return (
-    <motion.div
-      className="facts-container2"
-      initial={{ x: 100, opacity: 0 }}
-      whileInView={{ x: 0, opacity: 1 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-    >
+	<div style={{ overflowX: 'hidden' }}>
+		<motion.div
+		className="facts-container2"
+		initial={{ x: 100, opacity: 0 }}
+		whileInView={{ x: 0, opacity: 1 }}
+		viewport={{ once: true, amount: 0.3 }}
+		transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
+		>
 
-      <div className="fun-fact-container2">
-        <h2 className="chart-header2">Fun facts</h2>
-        <p className="fact-paragraph"> Pokémon Size Distribution by Percentage
-			<br/><br/>
-			<span style={{ padding: '5px', borderRadius: '10px', color: 'black', backgroundColor: smallColor }}>
-				{smallText}
-			</span> <br/><br/>
-			<span style={{ padding: '5px', borderRadius: '10px', color: 'black', backgroundColor: mediumColor }}>
-				{mediumText}
-			</span> <br/><br/>
-			<span style={{ padding: '5px', borderRadius: '10px', color: 'black', backgroundColor: largeColor }}>
-				{largeText}
-			</span>
-		</p>
-      </div>
-	  <div className="chart-container2">
-        <h2 className="chart-header2">Weight Distribution</h2>
-        <div className="chart-wrapper2">
-          <Pie ref={chartRef} data={chartData} options={chartOptions} />
-        </div>
-      </div>
-    </motion.div>
+		<div className="fun-fact-container2">
+			<h2 className="chart-header2">Fun facts</h2>
+			<p className="fact-paragraph"> Pokémon Size Distribution by Percentage
+				<br/><br/>
+				<span style={{ padding: '5px', borderRadius: '10px', color: 'black', backgroundColor: smallColor }}>
+					{smallText}
+				</span> <br/><br/>
+				<span style={{ padding: '5px', borderRadius: '10px', color: 'black', backgroundColor: mediumColor }}>
+					{mediumText}
+				</span> <br/><br/>
+				<span style={{ padding: '5px', borderRadius: '10px', color: 'black', backgroundColor: largeColor }}>
+					{largeText}
+				</span>
+			</p>
+		</div>
+		<div className="chart-container2">
+			<h2 className="chart-header2">Weight Distribution</h2>
+			<div className="chart-wrapper2">
+			<Pie ref={chartRef} data={chartData} options={chartOptions} />
+			</div>
+		</div>
+		</motion.div>
+	</div>
   );
 };
 
