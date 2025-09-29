@@ -18,10 +18,11 @@ ChartJS.register(CategoryScale, BarElement, LinearScale, Title, Tooltip, Legend)
 const TypesCountChart = () => {
   const [data, setData] = useState(null);
   const chartRef = useRef(null);
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/types-count`);
+      const response = await fetch(`${apiKey}/api/types-count`);
       const result = await response.json();
       setData(result);
     };

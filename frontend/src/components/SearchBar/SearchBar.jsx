@@ -16,8 +16,9 @@ const SearchBar = () => {
 			return;
 		}
 
+		const apiKey = import.meta.env.VITE_API_KEY;
 		try {
-			const response = await fetch(`${process.env.REACT_APP_API_URL}/api/pokemon-search?name=${encodeURIComponent(query)}`);
+			const response = await fetch(`${apiKey}/api/pokemon-search?name=${encodeURIComponent(query)}`);
 			const data = await response.json();
 			setPokemonList(data);
 			setFirstResult(true);

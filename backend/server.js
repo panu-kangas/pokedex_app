@@ -15,11 +15,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
-
 app.use(cors({
-	origin: 'http://localhost:3000',
+	origin: 'https://pokedex-app-seven-tan.vercel.app',
 }));
-
 
 mongoose.connect(MONGO_URI)
 	.then(() => console.log('\n\n🧠 Connected to MongoDB'))
@@ -33,19 +31,6 @@ app.get('/api/pokemon/:id', async (req, res) => {
 	try {
 		const { id } = req.params;
 		const pokemon = await Pokemon.findOne({ id });
-		if (!pokemon) {
-		return res.status(404).json({ message: 'Pokémon not found' });
-		}
-		res.json(pokemon);
-	} catch (err) {
-		res.status(500).json({ message: 'Error fetching Pokémon', error: err });
-	}
-	});
-
-app.get('/api/pokemon-search', async (req, res) => {
-	try {
-		const searchQuery = req.query.name;
-		const pokemon = await Pokemon.find({ name: { $regex: searchQuery, $options: 'i'} });
 		if (!pokemon) {
 		return res.status(404).json({ message: 'Pokémon not found' });
 		}
