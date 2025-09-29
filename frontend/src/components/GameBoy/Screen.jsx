@@ -12,10 +12,13 @@ const Screen = ({ currentId, isBig }) => {
       try {
 
 		setIdChange(true);
+		const apiKey = import.meta.env.VITE_API_KEY;
+
+		
 
 		const timer = setTimeout (async () => {
 
-			const response = await fetch(`${process.env.REACT_APP_API_URL}/api/pokemon/${currentId}`);
+			const response = await fetch(`${apiKey}/api/pokemon/${currentId}`);
 			const data = await response.json();
 			setPokemon(data);
 		  }, 400);

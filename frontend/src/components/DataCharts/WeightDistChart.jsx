@@ -19,12 +19,14 @@ const largeColor = '#F7D02C';
 
 
 const WeightDistChart = () => {
-  const [data, setData] = useState(null);
-  const chartRef = useRef(null);
+	const [data, setData] = useState(null);
+	const chartRef = useRef(null);
+	const apiKey = import.meta.env.VITE_API_KEY;
+
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/weight-dist`);
+      const response = await fetch(`${apiKey}/api/weight-dist`);
       const result = await response.json();
       setData(result);
     };
