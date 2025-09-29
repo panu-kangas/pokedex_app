@@ -17,7 +17,7 @@ const MONGO_URI = process.env.MONGO_URI;
 
 
 app.use(cors({
-	origin: 'https://pokedex-app-seven-tan.vercel.app',
+	origin: 'http://localhost:3000',
 }));
 
 
