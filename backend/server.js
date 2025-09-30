@@ -38,7 +38,20 @@ app.get('/api/pokemon/:id', async (req, res) => {
 	} catch (err) {
 		res.status(500).json({ message: 'Error fetching Pokémon', error: err });
 	}
-	});
+});
+
+app.get('/api/pokemon-search', async (req, res) => {
+	try {
+		const searchQuery = req.query.name;
+		const pokemon = await Pokemon.find({ name: { $regex: searchQuery, $options: 'i'} });
+		if (!pokemon) {
+		return res.status(404).json({ message: 'Pokémon not found' });
+		}
+		res.json(pokemon);
+	} catch (err) {
+		res.status(500).json({ message: 'Error fetching Pokémon', error: err });
+	}
+});
 
 app.get('/api/types-count', async (req, res) => {
 	
