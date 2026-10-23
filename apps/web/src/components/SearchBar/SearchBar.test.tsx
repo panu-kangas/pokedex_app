@@ -46,10 +46,11 @@ describe('SearchBar', () => {
     expect(screen.getByText('No results yet')).toBeInTheDocument();
   });
 
-  it('shows "not found" when the request fails', async () => {
-    searchMock.mockRejectedValue(new ApiError(400, 'Search must be 1-30 characters'));
+  // Current behaviour: API failures look the same as "no matches". A real error state comes with the PR 11 search rework.
+  it('falls back to "not found" when the API request fails', async () => {
+    searchMock.mockRejectedValue(new ApiError(500, 'Internal server error'));
 
-    await searchFor('x');
+    await searchFor('pikachu');
 
     expect(await screen.findByText('Pokémon not found')).toBeInTheDocument();
   });
