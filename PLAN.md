@@ -26,8 +26,8 @@ Status: ⬜ todo · 🟨 in progress · ✅ merged
 - ✅ **PR 1 – Security hotfixes.** Stop logging `MONGO_URI`. Escape and length-limit the search regex. Add a generic error handler (no raw errors sent to clients), `helmet` and rate limiting. Read the CORS origin from an env var so local development works.
 - ✅ **PR 2 – Repo cleanup + monorepo.** npm workspaces, root scripts (`dev`, `build`, `lint`, `test`). Remove CRA leftovers. Rename `VITE_API_KEY` → `VITE_API_URL`. Add `.env.example` files, ESLint (flat config) + Prettier and `.editorconfig`. Update the Render/Vercel root directories if needed.
 - ✅ **PR 3 – API to TypeScript + layered structure.** `routes → controllers → services → models`, a typed config module, zod validation of requests, central error middleware, and `/api/health`.
-- 🟨 **PR 4 – Web to TypeScript + shared types.** Convert components to `.tsx`, set up `packages/shared` with the Pokémon/API types and a typed API client.
-- ⬜ **PR 5 – Testing setup.** API: Vitest + Supertest + mongodb-memory-server. Web: Vitest + React Testing Library. A few meaningful first tests.
+- ✅ **PR 4 – Web to TypeScript + shared types.** Convert components to `.tsx`, set up `packages/shared` with the Pokémon/API types and a typed API client.
+- 🟨 **PR 5 – Testing setup.** API: Vitest + Supertest + mongodb-memory-server. Web: Vitest + React Testing Library. A few meaningful first tests.
 - ⬜ **PR 6 – CI + security tooling.** GitHub Actions on every PR: lint, typecheck, test, build, `npm audit --audit-level=high`. CodeQL scanning. `dependabot.yml` for grouped weekly npm + Actions updates. Status badge in the README.
 
 ## Phase 1: Data & API
