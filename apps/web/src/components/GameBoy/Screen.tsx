@@ -5,8 +5,35 @@ import InfoCard from './InfoCard';
 import BigInfoCard from '../BigInfoCard/BigInfoCard';
 import pokeballImage from '../../assets/pokeball.png';
 
-// Lets the current image fade out before the next Pokémon replaces it
-const FETCH_DELAY_MS = 400;
+// Matches the .pokemon-image opacity transition in GameBoy.css
+const FADE_OUT_MS = 400;
+
+function wait(ms: number, signal: AbortSignal): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(resolve, ms);
+    signal.addEventListener(
+      'abort',
+      () => {
+        clearTimeout(timer);
+        reject(signal.reason);
+      },
+      { once: true },
+    );
+  });
+}
+
+// Swapping <img src> before the new sprite is downloaded makes Chrome keep painting the old one
+async function preloadImage(src: string): Promise<void> {
+  const image = new Image();
+  image.src = src;
+  await image.decode();
+}
+
+async function loadPokemon(id: number, signal: AbortSignal): Promise<Pokemon> {
+  const pokemon = await api.getPokemon(id, signal);
+  await preloadImage(pokemon.sprite).catch(() => {});
+  return pokemon;
+}
 
 interface ScreenProps {
   currentId: number;
@@ -20,19 +47,13 @@ const Screen = ({ currentId, isBig }: ScreenProps) => {
   useEffect(() => {
     const controller = new AbortController();
 
-    const fetchTimer = setTimeout(() => {
-      api
-        .getPokemon(currentId, controller.signal)
-        .then(setPokemon)
-        .catch((error: unknown) => {
-          if (!controller.signal.aborted) console.error('Error fetching Pokémon:', error);
-        });
-    }, FETCH_DELAY_MS);
+    Promise.all([loadPokemon(currentId, controller.signal), wait(FADE_OUT_MS, controller.signal)])
+      .then(([next]) => setPokemon(next))
+      .catch((error: unknown) => {
+        if (!controller.signal.aborted) console.error('Error fetching Pokémon:', error);
+      });
 
-    return () => {
-      controller.abort();
-      clearTimeout(fetchTimer);
-    };
+    return () => controller.abort();
   }, [currentId]);
 
   if (!pokemon) {

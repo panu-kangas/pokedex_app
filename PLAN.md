@@ -28,6 +28,7 @@ Status: ⬜ todo · 🟨 in progress · ✅ merged
 - ✅ **PR 3 – API to TypeScript + layered structure.** `routes → controllers → services → models`, a typed config module, zod validation of requests, central error middleware, and `/api/health`.
 - ✅ **PR 4 – Web to TypeScript + shared types.** Convert components to `.tsx`, set up `packages/shared` with the Pokémon/API types and a typed API client.
 - 🟨 **PR 5 – Testing setup.** API: Vitest + Supertest + mongodb-memory-server. Web: Vitest + React Testing Library. A few meaningful first tests.
+- 🟨 **PR 5b – Viewer transition fix.** The next sprite was swapped in before it loaded (stale-image blink in Chrome), and the dual-type colour half popped in without a transition. Fetch in parallel with the fade-out, preload + decode the sprite before swapping, and always render both colour halves.
 - ⬜ **PR 6 – CI + security tooling.** GitHub Actions on every PR: lint, typecheck, test, build, `npm audit --audit-level=high`. CodeQL scanning. `dependabot.yml` for grouped weekly npm + Actions updates. Status badge in the README.
 
 ## Phase 1: Data & API
