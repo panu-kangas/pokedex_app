@@ -15,6 +15,7 @@
     "dev:api": "npm run dev -w apps/api",
     "build": "npm run build --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
     "start": "npm start -w apps/api",
     "seed": "npm run seed -w apps/api",
     "lint": "eslint .",

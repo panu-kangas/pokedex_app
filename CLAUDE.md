@@ -17,7 +17,12 @@ A fullstack Pokédex covering Gen I (151 Pokémon). Portfolio project, being ref
 
 - `npm install`: installs all workspaces
 - `npm run dev`: API on :5000 and web on :5173 together (or `dev:api` / `dev:web`)
-- `npm run build`, `npm run typecheck`, `npm run lint`, `npm run format`
+- `npm run build`, `npm run typecheck`, `npm run lint`, `npm run format`, `npm test`
+
+## Tests (Vitest)
+
+- API: `apps/api/test/`, Supertest against `createApp()` with an in-memory MongoDB (`useTestDb()` + fixtures in `test/helpers.ts`). `tsconfig.build.json` keeps tests out of `dist`.
+- Web: colocated `*.test.ts(x)`, jsdom + Testing Library; mock `api/client` rather than `fetch` in component tests. Fixtures in `src/test/`.
 - `npm run seed`: re-seeds the DB
 
 ## Conventions
