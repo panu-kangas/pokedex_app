@@ -4,7 +4,7 @@ A fullstack Pokédex covering Gen I (151 Pokémon). Portfolio project, being ref
 
 ## Structure (npm workspaces)
 - `apps/web`: React 19 + Vite, Chart.js, Framer Motion. Deployed on Vercel (root dir `apps/web`).
-- `apps/api`: TypeScript, Express 5 + Mongoose (MongoDB Atlas), zod. Deployed on Render (from the repo root; build `npm ci && npm run build -w apps/api`).
+- `apps/api`: TypeScript, Express 5 + Mongoose (MongoDB Atlas), zod. Deployed on Render (from the repo root; build `npm ci --include=dev && npm run build -w apps/api`).
   - `src/`: `index.ts` (bootstrap + shutdown) → `app.ts` (`createApp`, middleware) → `routes/` → `controllers/` (zod validation) → `services/` (DB logic) → `models/`
   - Throw `HttpError` or let `ZodError` bubble; `middleware/error-handler.ts` maps them to responses.
   - `src/config.ts` validates env at startup; `src/scripts/seed.ts` seeds from PokéAPI.
