@@ -55,6 +55,20 @@ Developed as a portfolio project, it features a clean and responsive user interf
 
 ---
 
+## 💻 Local Development
+
+Requires Node.js 20+ and a MongoDB connection string.
+
+```bash
+npm install
+cp apps/api/.env.example apps/api/.env   # fill in MONGO_URI
+cp apps/web/.env.example apps/web/.env
+npm run seed                             # first time only
+npm run dev                              # API on :5000, web on :5173
+```
+
+---
+
 ## ☁️ Deployment & Hosting
 
 This app is deployed using the following services:

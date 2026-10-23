@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import typeColors from '../../types/typeConfig';
 import './SearchBar.css';
 
@@ -16,9 +16,9 @@ const SearchBar = () => {
 			return;
 		}
 
-		const apiKey = import.meta.env.VITE_API_KEY;
+		const apiUrl = import.meta.env.VITE_API_URL;
 		try {
-			const response = await fetch(`${apiKey}/api/pokemon-search?name=${encodeURIComponent(query)}`);
+			const response = await fetch(`${apiUrl}/api/pokemon-search?name=${encodeURIComponent(query)}`);
 			const data = response.ok ? await response.json() : [];
 			setPokemonList(data);
 			setFirstResult(true);

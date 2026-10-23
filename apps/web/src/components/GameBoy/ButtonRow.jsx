@@ -1,4 +1,3 @@
-import React from 'react';
 
 const ButtonRow = ({ onNext, onPrev, onMoreInfo, isBig }) => {
 

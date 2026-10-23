@@ -105,7 +105,7 @@ app.use((req, res) => {
 });
 
 // Express 5 forwards errors from async handlers here, so routes need no try/catch
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
 	console.error(err);
 	res.status(500).json({ message: 'Internal server error' });
 });

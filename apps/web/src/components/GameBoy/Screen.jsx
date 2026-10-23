@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import InfoCard from './InfoCard';
 import BigInfoCard from '../BigInfoCard/BigInfoCard';
 import pokeballImage from '../../assets/pokeball.png';
@@ -12,13 +12,13 @@ const Screen = ({ currentId, isBig }) => {
       try {
 
 		setIdChange(true);
-		const apiKey = import.meta.env.VITE_API_KEY;
+		const apiUrl = import.meta.env.VITE_API_URL;
 
 		
 
 		const timer = setTimeout (async () => {
 
-			const response = await fetch(`${apiKey}/api/pokemon/${currentId}`);
+			const response = await fetch(`${apiUrl}/api/pokemon/${currentId}`);
 			const data = await response.json();
 			setPokemon(data);
 		  }, 400);
