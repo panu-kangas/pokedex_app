@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 import type { PokemonType } from '@pokedex/shared';
 import typeColors from '../../constants/typeColors';
 
@@ -14,38 +14,33 @@ const FALLBACK_COLOR = '#777';
 const TRANSITION = 'background 0.8s ease';
 
 const InfoCard = ({ id, name, image, type, idChange }: InfoCardProps) => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [type1, type2] = type;
+  const firstColor = type1 ? typeColors[type1] : FALLBACK_COLOR;
+  // Single-type Pokémon reuse the first colour so the right half always exists and can transition
+  const secondColor = type2 ? typeColors[type2] : firstColor;
 
   const backgroundStyle: CSSProperties = {
-    backgroundColor: type1 ? typeColors[type1] : FALLBACK_COLOR,
+    backgroundColor: firstColor,
     transition: TRANSITION,
   };
 
-  const secondBg: CSSProperties | undefined = type2
-    ? {
-        backgroundColor: typeColors[type2],
-        width: '50%',
-        height: '100%',
-        position: 'absolute',
-        top: '0',
-        left: '50%',
-        transition: TRANSITION,
-      }
-    : undefined;
+  const secondHalfStyle: CSSProperties = {
+    backgroundColor: secondColor,
+    width: '50%',
+    height: '100%',
+    position: 'absolute',
+    top: '0',
+    left: '50%',
+    transition: TRANSITION,
+  };
 
   return (
     <div className="info-card" style={backgroundStyle}>
       <div className="pokemon-id">{id}</div>
-      <img
-        src={image}
-        alt={name}
-        className={`pokemon-image ${idChange && isLoaded ? 'fade' : ''}`}
-        onLoad={() => setIsLoaded(true)}
-      />
+      <img src={image} alt={name} className={`pokemon-image ${idChange ? 'fade' : ''}`} />
       <div className="pokemon-name">{name}</div>
 
-      <div style={secondBg}></div>
+      <div style={secondHalfStyle}></div>
     </div>
   );
 };
