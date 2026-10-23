@@ -1,0 +1,36 @@
+import { Schema, model } from 'mongoose';
+
+export interface PokemonStat {
+  statName: string;
+  baseStat: number;
+}
+
+export interface Pokemon {
+  id: number;
+  name: string;
+  types: string[];
+  sprite: string;
+  weight: number; // hectograms
+  height: number; // decimetres
+  stats: PokemonStat[];
+}
+
+const statSchema = new Schema<PokemonStat>(
+  {
+    statName: { type: String, required: true },
+    baseStat: { type: Number, required: true },
+  },
+  { _id: false },
+);
+
+const pokemonSchema = new Schema<Pokemon>({
+  id: { type: Number, required: true, unique: true },
+  name: { type: String, required: true },
+  types: { type: [String], required: true },
+  sprite: { type: String, required: true },
+  weight: { type: Number, required: true },
+  height: { type: Number, required: true },
+  stats: { type: [statSchema], required: true },
+});
+
+export const PokemonModel = model<Pokemon>('Pokemon', pokemonSchema);
