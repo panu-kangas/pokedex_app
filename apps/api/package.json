@@ -10,7 +10,8 @@
     "seed": "tsx src/scripts/seed.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:list": "vitest list"
   },
   "dependencies": {
     "@pokedex/shared": "*",
