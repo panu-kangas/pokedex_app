@@ -22,9 +22,12 @@ const GameBoy = () => {
   return (
     <div className="gameboy-box">
       <Screen currentId={currentId} isBig={isBig} />
-      <ButtonRow 
-	  	onNext={handleNext} onPrev={handlePrev} onMoreInfo={handleMoreInfo} isBig={isBig} 
-	  />
+      <ButtonRow
+        onNext={handleNext}
+        onPrev={handlePrev}
+        onMoreInfo={handleMoreInfo}
+        isBig={isBig}
+      />
     </div>
   );
 };

@@ -1,10 +1,11 @@
+import type { PokemonType, TypeCounts, WeightDistribution } from '@pokedex/shared';
 import { PokemonModel } from '../models/pokemon.model.js';
 
 const SMALL_MAX_WEIGHT_HG = 300;
 const LARGE_MIN_WEIGHT_HG = 700;
 
-export async function countByType(): Promise<Record<string, number>> {
-  const rows = await PokemonModel.aggregate<{ _id: string; count: number }>([
+export async function countByType(): Promise<TypeCounts> {
+  const rows = await PokemonModel.aggregate<{ _id: PokemonType; count: number }>([
     { $unwind: '$types' },
     { $group: { _id: '$types', count: { $sum: 1 } } },
   ]);
@@ -12,7 +13,7 @@ export async function countByType(): Promise<Record<string, number>> {
   return Object.fromEntries(rows.map((row) => [row._id, row.count]));
 }
 
-export async function weightDistribution() {
+export async function weightDistribution(): Promise<WeightDistribution> {
   const [result] = await PokemonModel.aggregate<{ small: number; large: number; total: number }>([
     {
       $group: {

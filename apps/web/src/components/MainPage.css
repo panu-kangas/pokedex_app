@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
 
 .main-container {
-	text-align: center;
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 .section-button-row {
   display: flex;
@@ -15,35 +14,37 @@
 }
 
 .section-button-row button {
-	padding: 10px 20px;
-	font-size: 16px;
-	background-color: #3399ff;
-	color: white;
-	border: 1px solid black;
-	border-radius: 8px;
-	cursor: pointer;
-	box-shadow: 0 0 5px black;
-	transition: background-color 0.3s ease;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #3399ff;
+  color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 5px black;
+  transition: background-color 0.3s ease;
 }
 
 .section-button-row button:hover {
-	box-shadow: 0 0 8px black;
-	background-color: rgb(22, 139, 255);
+  box-shadow: 0 0 8px black;
+  background-color: rgb(22, 139, 255);
 }
 
 .type-divider {
-	border: 0;
-	height: 4px;
-	background: #3399ff;
-	margin: 50px auto;
-	width: 70%;
-	border-radius: 8px;
-  }
+  border: 0;
+  height: 4px;
+  background: #3399ff;
+  margin: 50px auto;
+  width: 70%;
+  border-radius: 8px;
+}
 
 .firstInfoBox {
   background: linear-gradient(to bottom right, #fff8b5, #ffef92);
   border: 4px double #ffcb05;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), inset 0 0 10px #fff5cc;
+  box-shadow:
+    0 0 12px rgba(0, 0, 0, 0.3),
+    inset 0 0 10px #fff5cc;
   border-radius: 12px;
   width: 60%;
   max-width: 600px;
@@ -73,7 +74,6 @@
   max-width: 90%;
   font-family: 'Verdana', sans-serif;
 }
-
 
 @keyframes fadeIn {
   from {
