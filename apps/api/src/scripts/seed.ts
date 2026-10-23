@@ -1,6 +1,7 @@
 import { config } from '../config.js';
 import { connectDb, disconnectDb } from '../db.js';
-import { PokemonModel, type Pokemon } from '../models/pokemon.model.js';
+import type { Pokemon, PokemonType } from '@pokedex/shared';
+import { PokemonModel } from '../models/pokemon.model.js';
 
 const POKEMON_COUNT = 151;
 
@@ -9,7 +10,7 @@ interface PokeApiPokemon {
   name: string;
   weight: number;
   height: number;
-  types: { type: { name: string } }[];
+  types: { type: { name: PokemonType } }[];
   sprites: { front_default: string };
   stats: { base_stat: number; stat: { name: string } }[];
 }

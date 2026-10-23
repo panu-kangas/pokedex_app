@@ -6,6 +6,7 @@ Developed as a portfolio project, it features a clean and responsive user interf
 ---
 
 ⚠️ **Note**
+
 1. This project is currently under development and may be missing planned features or polish.
 2. The Pokédex App is not optimized for mobile devices at the moment.
 
@@ -33,24 +34,26 @@ Developed as a portfolio project, it features a clean and responsive user interf
 ## 🔧 Features in Development
 
 - **Optimization for mobile use**  
-  *(Under Construction)* — Optimize App's UI to work better on mobile devices.
+  _(Under Construction)_ — Optimize App's UI to work better on mobile devices.
 
 - **Search Functionality Update**  
-  *(Under Construction)* — Add other methods for searching (by id number, stats, type etc)
-
+  _(Under Construction)_ — Add other methods for searching (by id number, stats, type etc)
 
 ---
 
 ## 🛠 Technologies Used
 
 ### Frontend
+
 - JavaScript (React)
 - CSS for styling
 
 ### Backend
+
 - Node.js (Express)
 
 ### Database
+
 - MongoDB
 
 ---
@@ -82,5 +85,3 @@ This app is deployed using the following services:
 ⚠️ **Disclaimer**  
 This application is for educational purposes only.  
 It uses data provided by the public [PokéAPI](https://pokeapi.co/).
-
-

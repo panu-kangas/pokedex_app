@@ -6,14 +6,14 @@ Status: ⬜ todo · 🟨 in progress · ✅ merged
 
 ## Decisions
 
-| Topic | Decision | Why |
-|---|---|---|
-| Language | TypeScript (frontend + backend), migrated early | Most junior job ads ask for it; all new code is typed from the start |
-| Database | Keep MongoDB (Atlas + Mongoose), done properly | Less migration work; adds validation, indexes and aggregation pipelines |
-| Styling | CSS Modules + design tokens (CSS variables) | Scoped styles, real CSS skill, full control over the GameBoy look |
-| Theme | Dark, modern UI; accents from the classic Pokémon blue `#3B4CCA` and yellow `#FFDE00` | The current palette looks bland |
-| Auth | After the MVP | Build it on a stable, tested base |
-| Repo layout | npm workspaces monorepo: `apps/web`, `apps/api`, `packages/shared` | One install and one CI run; types shared between frontend and backend |
+| Topic       | Decision                                                                              | Why                                                                     |
+| ----------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Language    | TypeScript (frontend + backend), migrated early                                       | Most junior job ads ask for it; all new code is typed from the start    |
+| Database    | Keep MongoDB (Atlas + Mongoose), done properly                                        | Less migration work; adds validation, indexes and aggregation pipelines |
+| Styling     | CSS Modules + design tokens (CSS variables)                                           | Scoped styles, real CSS skill, full control over the GameBoy look       |
+| Theme       | Dark, modern UI; accents from the classic Pokémon blue `#3B4CCA` and yellow `#FFDE00` | The current palette looks bland                                         |
+| Auth        | After the MVP                                                                         | Build it on a stable, tested base                                       |
+| Repo layout | npm workspaces monorepo: `apps/web`, `apps/api`, `packages/shared`                    | One install and one CI run; types shared between frontend and backend   |
 
 ## Workflow
 
@@ -25,10 +25,10 @@ Status: ⬜ todo · 🟨 in progress · ✅ merged
 
 - ✅ **PR 1 – Security hotfixes.** Stop logging `MONGO_URI`. Escape and length-limit the search regex. Add a generic error handler (no raw errors sent to clients), `helmet` and rate limiting. Read the CORS origin from an env var so local development works.
 - ✅ **PR 2 – Repo cleanup + monorepo.** npm workspaces, root scripts (`dev`, `build`, `lint`, `test`). Remove CRA leftovers. Rename `VITE_API_KEY` → `VITE_API_URL`. Add `.env.example` files, ESLint (flat config) + Prettier and `.editorconfig`. Update the Render/Vercel root directories if needed.
-- 🟨 **PR 3 – API to TypeScript + layered structure.** `routes → controllers → services → models`, a typed config module, zod validation of requests, central error middleware, and `/api/health`.
-- ⬜ **PR 4 – Web to TypeScript + shared types.** Convert components to `.tsx`, set up `packages/shared` with the Pokémon/API types and a typed API client.
+- ✅ **PR 3 – API to TypeScript + layered structure.** `routes → controllers → services → models`, a typed config module, zod validation of requests, central error middleware, and `/api/health`.
+- 🟨 **PR 4 – Web to TypeScript + shared types.** Convert components to `.tsx`, set up `packages/shared` with the Pokémon/API types and a typed API client.
 - ⬜ **PR 5 – Testing setup.** API: Vitest + Supertest + mongodb-memory-server. Web: Vitest + React Testing Library. A few meaningful first tests.
-- ⬜ **PR 6 – CI.** GitHub Actions on every PR: lint, typecheck, test, build. Status badge in the README.
+- ⬜ **PR 6 – CI + security tooling.** GitHub Actions on every PR: lint, typecheck, test, build, `npm audit --audit-level=high`. CodeQL scanning. `dependabot.yml` for grouped weekly npm + Actions updates. Status badge in the README.
 
 ## Phase 1: Data & API
 

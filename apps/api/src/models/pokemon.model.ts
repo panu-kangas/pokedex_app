@@ -1,19 +1,5 @@
 import { Schema, model } from 'mongoose';
-
-export interface PokemonStat {
-  statName: string;
-  baseStat: number;
-}
-
-export interface Pokemon {
-  id: number;
-  name: string;
-  types: string[];
-  sprite: string;
-  weight: number; // hectograms
-  height: number; // decimetres
-  stats: PokemonStat[];
-}
+import type { Pokemon, PokemonStat } from '@pokedex/shared';
 
 const statSchema = new Schema<PokemonStat>(
   {
