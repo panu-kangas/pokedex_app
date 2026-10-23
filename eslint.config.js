@@ -1,19 +1,27 @@
 import js from '@eslint/js';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import prettier from 'eslint-config-prettier';
 
+const unusedVarsOptions = { argsIgnorePattern: '^_' };
+
 export default [
   { ignores: ['**/dist', '**/build', '**/node_modules'] },
   js.configs.recommended,
-  { rules: { 'no-unused-vars': ['error', { argsIgnorePattern: '^_' }] } },
+  { rules: { 'no-unused-vars': ['error', unusedVarsOptions] } },
+  ...tseslint.configs.recommended.map((cfg) => ({ ...cfg, files: ['**/*.{ts,tsx}'] })),
   {
-    files: ['apps/api/**/*.js'],
+    files: ['**/*.{ts,tsx}'],
+    rules: { '@typescript-eslint/no-unused-vars': ['error', unusedVarsOptions] },
+  },
+  {
+    files: ['apps/api/**/*.{js,ts}'],
     languageOptions: { globals: globals.node },
   },
   {
-    files: ['apps/web/**/*.{js,jsx}'],
+    files: ['apps/web/**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
