@@ -11,7 +11,7 @@ const SearchBar = () => {
 
 	// API call then search is clicked
 	const clickSearch = async () => {
-		if (query.length === 0) {
+		if (query.trim().length === 0) {
 			setPokemonList([]);
 			return;
 		}
@@ -19,7 +19,7 @@ const SearchBar = () => {
 		const apiKey = import.meta.env.VITE_API_KEY;
 		try {
 			const response = await fetch(`${apiKey}/api/pokemon-search?name=${encodeURIComponent(query)}`);
-			const data = await response.json();
+			const data = response.ok ? await response.json() : [];
 			setPokemonList(data);
 			setFirstResult(true);
 		} catch (error) {
@@ -75,6 +75,7 @@ const SearchBar = () => {
 			type="text"
 			value={query}
 			onChange={handleInputChange}
+			maxLength={30}
 			placeholder="Type Pokémon name..."
 			/>
 
