@@ -28,6 +28,14 @@ See `docs/testing.md` for strategy, gaps and conventions.
 - API: `apps/api/test/`, Supertest against `createApp()` with an in-memory MongoDB (`useTestDb()` + fixtures in `test/helpers.ts`). `tsconfig.build.json` keeps tests out of `dist`.
 - Web: colocated `*.test.ts(x)`, jsdom + Testing Library; mock `api/client` rather than `fetch` in component tests. Fixtures in `src/test/`.
 
+## Deployment gotchas
+
+- Vercel installs only the `apps/web` workspace's dependencies, so every workspace must declare the tools its own scripts use (e.g. `typescript`); never rely on root-hoisted packages.
+- Render tracks `main` (Build: `npm ci --include=dev && npm run build -w apps/api`, Start: `npm start`). A failed deploy keeps the previous version live.
+- Prod: web `https://pokedex-app-seven-tan.vercel.app`, API `https://pokedex-backend-o7nb.onrender.com` (check `/api/health` after deploys).
+- API CORS allows only `CORS_ORIGIN`, so Vercel PR previews can't load data yet (fix planned in PR 6).
+- When a PR changes Vercel/Render settings, tell the user exactly what to change and when (usually right after merging).
+
 ## Conventions
 
 - Keep comments to a minimum; only explain what the code doesn't make obvious.
