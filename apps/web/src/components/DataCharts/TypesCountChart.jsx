@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import typeColors from '../../types/typeConfig';
 import { Bar } from 'react-chartjs-2';
 import './TypesCountChart.css';
@@ -15,14 +15,15 @@ import { motion } from 'framer-motion';
 
 ChartJS.register(CategoryScale, BarElement, LinearScale, Title, Tooltip, Legend);
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const TypesCountChart = () => {
   const [data, setData] = useState(null);
   const chartRef = useRef(null);
-  const apiKey = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${apiKey}/api/types-count`);
+      const response = await fetch(`${apiUrl}/api/types-count`);
       const result = await response.json();
       setData(result);
     };

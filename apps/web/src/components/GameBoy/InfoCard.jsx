@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { useState } from 'react';
 import typeColors from '../../types/typeConfig';
 
 const InfoCard = ({ id, name, image, type, idChange }) => {

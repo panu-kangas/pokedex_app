@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Pie } from 'react-chartjs-2';
 import './WeightDistChart.css';
 import {
@@ -12,6 +12,8 @@ import { motion } from 'framer-motion';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const smallColor = '#F95587';
 const mediumColor = '#735797';
 const largeColor = '#F7D02C';
@@ -21,12 +23,11 @@ const largeColor = '#F7D02C';
 const WeightDistChart = () => {
 	const [data, setData] = useState(null);
 	const chartRef = useRef(null);
-	const apiKey = import.meta.env.VITE_API_KEY;
 
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${apiKey}/api/weight-dist`);
+      const response = await fetch(`${apiUrl}/api/weight-dist`);
       const result = await response.json();
       setData(result);
     };

@@ -1,4 +1,3 @@
-import React from 'react';
 import './BigInfoCard.css';
 
 const BigInfoCard = ({ pokemon }) => {
