@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { z } from 'zod';
+import { parseCorsOrigins } from './utils/cors-origins.js';
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
@@ -8,12 +9,7 @@ const envSchema = z.object({
   CORS_ORIGIN: z
     .string()
     .default('https://pokedex-app-seven-tan.vercel.app')
-    .transform((value) =>
-      value
-        .split(',')
-        .map((origin) => origin.trim())
-        .filter(Boolean),
-    ),
+    .transform(parseCorsOrigins),
 });
 
 const parsed = envSchema.safeParse(process.env);

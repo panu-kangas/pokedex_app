@@ -1,5 +1,7 @@
 # Pokédex App
 
+[![CI](https://github.com/panu-kangas/pokedex_app/actions/workflows/ci.yml/badge.svg)](https://github.com/panu-kangas/pokedex_app/actions/workflows/ci.yml)
+
 The **Pokédex App** is a full-stack, database-driven application that provides comprehensive information on the original 151 Pokémon.  
 Developed as a portfolio project, it features a clean and responsive user interface that allows users to browse and explore Pokémon entries.
 

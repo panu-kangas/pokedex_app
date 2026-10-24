@@ -16,6 +16,7 @@
     "build": "npm run build --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
+    "test:coverage": "npm run test:coverage --workspaces --if-present",
     "test:list": "npm run test:list --workspaces --if-present --silent",
     "start": "npm start -w apps/api",
     "seed": "npm run seed -w apps/api",

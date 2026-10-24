@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import request from 'supertest';
 import { PokemonModel } from '../src/models/pokemon.model.js';
+import { parseCorsOrigins } from '../src/utils/cors-origins.js';
 import { ALLOWED_ORIGIN, createTestApp, useTestDb } from './helpers.js';
 
 useTestDb();
@@ -43,6 +44,21 @@ describe('app', () => {
     const blocked = await request(app).get('/api/health').set('Origin', 'http://evil.test');
 
     expect(allowed.headers['access-control-allow-origin']).toBe(ALLOWED_ORIGIN);
+    expect(blocked.headers['access-control-allow-origin']).toBeUndefined();
+  });
+
+  it('allows CORS origins that match a wildcard pattern', async () => {
+    const previews = createTestApp({
+      corsOrigins: parseCorsOrigins('https://pokedex-app-*-team.vercel.app'),
+    });
+    const preview = 'https://pokedex-app-git-feat-x-team.vercel.app';
+
+    const allowed = await request(previews).get('/api/health').set('Origin', preview);
+    const blocked = await request(previews)
+      .get('/api/health')
+      .set('Origin', 'https://pokedex-app-x-other.vercel.app');
+
+    expect(allowed.headers['access-control-allow-origin']).toBe(preview);
     expect(blocked.headers['access-control-allow-origin']).toBeUndefined();
   });
 

@@ -8,9 +8,10 @@ import { pokemonRouter } from './routes/pokemon.routes.js';
 import { statsRouter } from './routes/stats.routes.js';
 import { notFound } from './middleware/not-found.js';
 import { errorHandler } from './middleware/error-handler.js';
+import type { CorsOrigin } from './utils/cors-origins.js';
 
 export interface AppOptions {
-  corsOrigins: string[];
+  corsOrigins: CorsOrigin[];
   rateLimitPerMinute?: number;
 }
 
