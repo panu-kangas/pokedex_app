@@ -52,12 +52,77 @@ describe('app', () => {
     expect(res.headers['content-security-policy']).toBeDefined();
     expect(res.headers['x-powered-by']).toBeUndefined();
   });
+});
 
-  it('rate limits API routes but not the health check', async () => {
-    const api = await request(app).get('/api/pokemon/1');
-    const health = await request(app).get('/api/health');
+describe('rate limiting', () => {
+  const LIMIT = 3;
+  const EDGE = '172.64.0.1';
 
-    expect(api.headers['ratelimit-policy']).toBeDefined();
+  // In production the socket is Render's load balancer (127.0.0.1 here), which forwards
+  // "X-Forwarded-For: [client-supplied..., ]<client>, <cloudflare edge>"
+  const viaProxies = (app: ReturnType<typeof createTestApp>, path: string, forwardedFor: string) =>
+    request(app).get(path).set('X-Forwarded-For', forwardedFor);
+
+  it('blocks requests over the limit with a JSON 429', async () => {
+    const limited = createTestApp({ rateLimitPerMinute: LIMIT });
+
+    for (let i = 0; i < LIMIT; i++) {
+      const res = await viaProxies(limited, '/api/pokemon/1', `203.0.113.1, ${EDGE}`);
+      expect(res.status).toBe(200);
+    }
+    const blocked = await viaProxies(limited, '/api/pokemon/1', `203.0.113.1, ${EDGE}`);
+
+    expect(blocked.status).toBe(429);
+    expect(blocked.body).toEqual({ message: 'Too many requests, please try again later' });
+    expect(blocked.headers['retry-after']).toBeDefined();
+  });
+
+  it('keeps the health check available after the limit is hit', async () => {
+    const limited = createTestApp({ rateLimitPerMinute: LIMIT });
+
+    for (let i = 0; i < LIMIT; i++) {
+      await viaProxies(limited, '/api/pokemon/1', `203.0.113.2, ${EDGE}`);
+    }
+    const blocked = await viaProxies(limited, '/api/pokemon/1', `203.0.113.2, ${EDGE}`);
+    const health = await viaProxies(limited, '/api/health', `203.0.113.2, ${EDGE}`);
+
+    expect(blocked.status).toBe(429);
+    expect(health.status).toBe(200);
     expect(health.headers['ratelimit-policy']).toBeUndefined();
+  });
+
+  it('counts each client IP separately', async () => {
+    const limited = createTestApp({ rateLimitPerMinute: LIMIT });
+
+    for (let i = 0; i < LIMIT; i++) {
+      await viaProxies(limited, '/api/pokemon/1', `203.0.113.3, ${EDGE}`);
+    }
+    const blocked = await viaProxies(limited, '/api/pokemon/1', `203.0.113.3, ${EDGE}`);
+    const otherClient = await viaProxies(limited, '/api/pokemon/1', `203.0.113.4, ${EDGE}`);
+
+    expect(blocked.status).toBe(429);
+    expect(otherClient.status).toBe(200);
+  });
+
+  it('counts a client once across different Cloudflare edges', async () => {
+    const limited = createTestApp({ rateLimitPerMinute: LIMIT });
+
+    for (let i = 0; i < LIMIT; i++) {
+      await viaProxies(limited, '/api/pokemon/1', `203.0.113.5, 172.64.0.${i}`);
+    }
+    const blocked = await viaProxies(limited, '/api/pokemon/1', '203.0.113.5, 172.71.0.99');
+
+    expect(blocked.status).toBe(429);
+  });
+
+  it('ignores client-supplied X-Forwarded-For entries', async () => {
+    const limited = createTestApp({ rateLimitPerMinute: LIMIT });
+
+    for (let i = 0; i < LIMIT; i++) {
+      await viaProxies(limited, '/api/pokemon/1', `10.0.0.${i}, 203.0.113.6, ${EDGE}`);
+    }
+    const spoofed = await viaProxies(limited, '/api/pokemon/1', `10.0.0.99, 203.0.113.6, ${EDGE}`);
+
+    expect(spoofed.status).toBe(429);
   });
 });

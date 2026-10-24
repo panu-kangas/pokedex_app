@@ -2,13 +2,13 @@ import { afterAll, beforeAll } from 'vitest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import type { Pokemon } from '@pokedex/shared';
-import { createApp } from '../src/app.js';
+import { createApp, type AppOptions } from '../src/app.js';
 import { PokemonModel } from '../src/models/pokemon.model.js';
 
 export const ALLOWED_ORIGIN = 'http://allowed.test';
 
-export function createTestApp() {
-  return createApp({ corsOrigins: [ALLOWED_ORIGIN] });
+export function createTestApp(options: Partial<AppOptions> = {}) {
+  return createApp({ corsOrigins: [ALLOWED_ORIGIN], ...options });
 }
 
 const stats = (hp: number) => [

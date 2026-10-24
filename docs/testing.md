@@ -27,6 +27,7 @@ Vitest in both apps. Run everything from the repo root:
 
 - API tests live in `apps/api/test/`. `useTestDb()` and `fixtures` are in `test/helpers.ts`; call `useTestDb()` at the top of each file that needs the DB.
 - Web tests sit next to the component (`Foo.test.tsx`). Shared fixtures (`makePokemon()`) are in `apps/web/src/test/`.
+- Rate limiting tests build their own app with `createTestApp({ rateLimitPerMinute: 3 })` and send `X-Forwarded-For: <client>, <cloudflare edge>`, the chain Render's load balancer forwards in production. Use a different client IP per test.
 - Timing-dependent components use fake timers (`vi.useFakeTimers()` + `vi.advanceTimersByTimeAsync()` inside `act`).
 - Test names are full sentences describing behaviour, since `test:list` output is the readable spec.
 - Tests are typechecked (`npm run typecheck`) but never built into `apps/api/dist`.
