@@ -18,7 +18,7 @@ A fullstack Pokédex covering Gen I (151 Pokémon). Portfolio project, being ref
 - `npm install`: installs all workspaces
 - `npm run dev`: API on :5000 and web on :5173 together (or `dev:api` / `dev:web`)
 - `npm run build`, `npm run typecheck`, `npm run lint`, `npm run format`
-- `npm test`, `npm run test:list` (every test by name)
+- `npm test`, `npm run test:list` (every test by name), `npm run test:coverage`
 - `npm run seed`: re-seeds the DB
 
 ## Tests (Vitest)
@@ -34,7 +34,8 @@ See `docs/testing.md` for strategy, gaps and conventions.
 - Render tracks `main` (Build: `npm ci --include=dev && npm run build -w apps/api`, Start: `npm start`). A failed deploy keeps the previous version live.
 - Prod: web `https://pokedex-app-seven-tan.vercel.app`, API `https://pokedex-backend-o7nb.onrender.com` (check `/api/health` after deploys).
 - Render's proxy chain is client → Cloudflare → Render load balancer, hence `trust proxy 2` (verified from prod logs). Changing it breaks per-client rate limiting; the tests in `app.test.ts` cover this.
-- API CORS allows only `CORS_ORIGIN`, so Vercel PR previews can't load data yet (fix planned in PR 6).
+- API CORS allows only `CORS_ORIGIN` (comma-separated; `*` matches within one hostname label). Render's value includes `https://pokedex-app-*-panu-kangas-projects.vercel.app` so PR previews can load data.
+- CI (`.github/workflows/ci.yml`) must pass on PRs; CodeQL and Dependabot (weekly, grouped minor/patch) are also configured in `.github/`.
 - When a PR changes Vercel/Render settings, tell the user exactly what to change and when (usually right after merging).
 
 ## Conventions

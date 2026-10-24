@@ -6,8 +6,13 @@ Vitest in both apps. Run everything from the repo root:
 | ---------------------------------------- | ----------------------------------------------- |
 | `npm test`                               | Run all tests once                              |
 | `npm run test:list`                      | List every test by name (the up-to-date "spec") |
+| `npm run test:coverage`                  | Run all tests with a coverage report            |
 | `npm run test:watch -w apps/web`         | Watch mode for one app                          |
 | `npx vitest run --root apps/api pokemon` | Run test files matching a name                  |
+
+## CI and coverage
+
+[GitHub Actions](https://github.com/panu-kangas/pokedex_app/actions/workflows/ci.yml) runs lint, format check, typecheck, tests with coverage and build on every PR and push to `main`. Each run's **job summary** shows the coverage tables, and the full HTML report is attached as the `coverage-report` artifact. There is no coverage threshold: the numbers show where tests are missing, they don't gate merges.
 
 ## Strategy
 
