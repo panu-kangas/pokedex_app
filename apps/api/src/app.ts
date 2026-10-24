@@ -22,6 +22,21 @@ export function createApp({ corsOrigins }: AppOptions) {
   app.use(helmet());
   app.use(cors({ origin: corsOrigins }));
 
+  // TEMP: inspect Render's proxy chain to pick the right 'trust proxy' value; remove in PR 25
+  app.use('/api/health', (req, _res, next) => {
+    if ('debug-ip' in req.query) {
+      console.log('[debug-ip]', {
+        xForwardedFor: req.headers['x-forwarded-for'],
+        cfConnectingIp: req.headers['cf-connecting-ip'],
+        trueClientIp: req.headers['true-client-ip'],
+        socket: req.socket.remoteAddress,
+        reqIp: req.ip,
+        reqIps: req.ips,
+      });
+    }
+    next();
+  });
+
   app.use('/api/health', healthRouter);
 
   app.use(
