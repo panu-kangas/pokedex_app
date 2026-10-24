@@ -29,6 +29,7 @@ Status: ⬜ todo · 🟨 in progress · ✅ merged
 - ✅ **PR 4 – Web to TypeScript + shared types.** Convert components to `.tsx`, set up `packages/shared` with the Pokémon/API types and a typed API client.
 - ✅ **PR 5 – Testing setup.** API: Vitest + Supertest + mongodb-memory-server. Web: Vitest + React Testing Library. A few meaningful first tests.
 - ✅ **PR 5b – Viewer transition fix.** The next sprite was swapped in before it loaded (stale-image blink in Chrome), and the dual-type colour half popped in without a transition. Fetch in parallel with the fade-out, preload + decode the sprite before swapping, and always render both colour halves.
+- ✅ **PR 5c – Rate limiter behaviour tests.** The limit is configurable in `createApp`, so tests can check the real behaviour with a small limit: JSON 429 over the limit, health check exempt, separate counts per client IP behind the proxy, and spoofed `X-Forwarded-For` entries ignored.
 - ⬜ **PR 6 – CI + security tooling.** GitHub Actions on every PR: lint, typecheck, test, build, `npm audit --audit-level=high`. CodeQL scanning. `dependabot.yml` for grouped weekly npm + Actions updates. Coverage report (`@vitest/coverage-v8`) in CI, linked from `docs/testing.md`. Status badge in the README. Allow this project's Vercel preview origins in the API's CORS so PR previews can load data (needed before the Phase 2 UI reviews).
 
 ## Phase 1: Data & API
@@ -55,3 +56,4 @@ Status: ⬜ todo · 🟨 in progress · ✅ merged
 - Compare tool and type matchup calculator
 - E2E tests (Playwright), OpenAPI docs, Docker Compose for local development
 - More generations, server-side caching
+- Optional load testing: an `autocannon` or k6 script run locally (never against prod or in CI), with results written up, e.g. p95 latency before/after indexes

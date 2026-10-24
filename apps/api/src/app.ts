@@ -9,11 +9,12 @@ import { statsRouter } from './routes/stats.routes.js';
 import { notFound } from './middleware/not-found.js';
 import { errorHandler } from './middleware/error-handler.js';
 
-interface AppOptions {
+export interface AppOptions {
   corsOrigins: string[];
+  rateLimitPerMinute?: number;
 }
 
-export function createApp({ corsOrigins }: AppOptions) {
+export function createApp({ corsOrigins, rateLimitPerMinute = 100 }: AppOptions) {
   const app = express();
 
   // Render runs behind a proxy; without this every request shares the proxy's IP in the rate limiter
@@ -43,7 +44,7 @@ export function createApp({ corsOrigins }: AppOptions) {
     '/api',
     rateLimit({
       windowMs: 60 * 1000,
-      limit: 100,
+      limit: rateLimitPerMinute,
       standardHeaders: 'draft-8',
       legacyHeaders: false,
       message: { message: 'Too many requests, please try again later' },

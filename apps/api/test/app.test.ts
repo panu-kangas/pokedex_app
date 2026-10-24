@@ -52,12 +52,62 @@ describe('app', () => {
     expect(res.headers['content-security-policy']).toBeDefined();
     expect(res.headers['x-powered-by']).toBeUndefined();
   });
+});
 
-  it('rate limits API routes but not the health check', async () => {
-    const api = await request(app).get('/api/pokemon/1');
-    const health = await request(app).get('/api/health');
+describe('rate limiting', () => {
+  const LIMIT = 3;
 
-    expect(api.headers['ratelimit-policy']).toBeDefined();
+  // Simulates Render's proxy, which appends the real client IP as the last X-Forwarded-For entry
+  const getFrom = (limited: ReturnType<typeof createTestApp>, path: string, forwardedFor: string) =>
+    request(limited).get(path).set('X-Forwarded-For', forwardedFor);
+
+  it('blocks requests over the limit with a JSON 429', async () => {
+    const limited = createTestApp({ rateLimitPerMinute: LIMIT });
+
+    for (let i = 0; i < LIMIT; i++) {
+      const res = await getFrom(limited, '/api/pokemon/1', '203.0.113.1');
+      expect(res.status).toBe(200);
+    }
+    const blocked = await getFrom(limited, '/api/pokemon/1', '203.0.113.1');
+
+    expect(blocked.status).toBe(429);
+    expect(blocked.body).toEqual({ message: 'Too many requests, please try again later' });
+    expect(blocked.headers['retry-after']).toBeDefined();
+  });
+
+  it('keeps the health check available after the limit is hit', async () => {
+    const limited = createTestApp({ rateLimitPerMinute: LIMIT });
+
+    for (let i = 0; i <= LIMIT; i++) {
+      await getFrom(limited, '/api/pokemon/1', '203.0.113.2');
+    }
+    const health = await getFrom(limited, '/api/health', '203.0.113.2');
+
+    expect(health.status).toBe(200);
     expect(health.headers['ratelimit-policy']).toBeUndefined();
+  });
+
+  it('counts each client IP separately behind the proxy', async () => {
+    const limited = createTestApp({ rateLimitPerMinute: LIMIT });
+
+    for (let i = 0; i <= LIMIT; i++) {
+      await getFrom(limited, '/api/pokemon/1', '203.0.113.3');
+    }
+    const blocked = await getFrom(limited, '/api/pokemon/1', '203.0.113.3');
+    const otherClient = await getFrom(limited, '/api/pokemon/1', '203.0.113.4');
+
+    expect(blocked.status).toBe(429);
+    expect(otherClient.status).toBe(200);
+  });
+
+  it('ignores client-supplied X-Forwarded-For entries', async () => {
+    const limited = createTestApp({ rateLimitPerMinute: LIMIT });
+
+    for (let i = 0; i <= LIMIT; i++) {
+      await getFrom(limited, '/api/pokemon/1', `10.0.0.${i}, 203.0.113.5`);
+    }
+    const spoofed = await getFrom(limited, '/api/pokemon/1', '10.0.0.99, 203.0.113.5');
+
+    expect(spoofed.status).toBe(429);
   });
 });
