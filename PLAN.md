@@ -57,3 +57,10 @@ Status: ⬜ todo · 🟨 in progress · ✅ merged
 - E2E tests (Playwright), OpenAPI docs, Docker Compose for local development
 - More generations, server-side caching
 - Optional load testing: an `autocannon` or k6 script run locally (never against prod or in CI), with results written up, e.g. p95 latency before/after indexes
+
+## Held dependency upgrades
+
+Dependabot is told to ignore these majors, so nothing reminds us; check now and then.
+
+- **TypeScript 7** (closed #31): wait until `typescript-eslint` supports it (its peer range is `<6.1.0` as of 8.72.0).
+- **ESLint 10** (closed #29): `eslint-plugin-react` only supports ESLint ≤ 9 and is no longer released. Chore PR: swap it for `@eslint-react/eslint-plugin`, then upgrade ESLint and `@eslint/js`.
