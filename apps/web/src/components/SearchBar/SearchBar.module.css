@@ -61,7 +61,7 @@
 
 .results {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 180px));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 180px));
   justify-content: center;
   gap: var(--space-4);
   margin: 0;
