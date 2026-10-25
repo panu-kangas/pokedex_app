@@ -3,18 +3,17 @@ import styles from './Hero.module.css';
 
 const ARTWORK_URL =
   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png';
-const STACK = ['React 19', 'TypeScript', 'Express', 'MongoDB'];
+const STACK = ['React 19', 'TypeScript', 'Express', 'MongoDB', 'REST API'];
 
 const Hero = () => (
   <section className={styles.hero} id="top">
     <div className={styles.copy}>
-      <p className={styles.eyebrow}>Gen I · 151 Pokémon</p>
       <h1 className={styles.title}>
         A pocket guide to the <span className={styles.highlight}>original 151</span>
       </h1>
       <p className={styles.lead}>
-        Flip through every Gen I Pokémon on a retro GameBoy, explore type and size statistics, and
-        search the whole Pokédex, all served by a TypeScript REST API.
+        Flip through every Gen I Pokémon on a retro GameBoy, discover which types and sizes are the
+        most common, and use search to find your favourite.
       </p>
       <div className={styles.actions}>
         <a href="#viewer" className={styles.primary}>

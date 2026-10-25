@@ -7,14 +7,6 @@
   padding: var(--space-12) var(--space-4) var(--space-16);
 }
 
-.eyebrow {
-  margin: 0 0 var(--space-4);
-  font-family: var(--font-pixel);
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
-  color: var(--color-accent);
-}
-
 .title {
   margin: 0;
   font-size: var(--text-hero);
