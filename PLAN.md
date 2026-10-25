@@ -32,9 +32,17 @@ Status: ⬜ todo · 🟨 in progress · ✅ merged
 - ✅ **PR 5c – Rate limiter fix + behaviour tests.** Production logs showed Render's chain is client → Cloudflare → Render load balancer, so `trust proxy 1` keyed the limiter on Cloudflare edge IPs (users shared a few counters). Now `trust proxy 2`. The limit is configurable in `createApp`, and tests replay the real header chain: JSON 429 over the limit, health check exempt, per-client counting across Cloudflare edges, and spoofed `X-Forwarded-For` entries ignored.
 - ✅ **PR 6 – CI + security tooling.** GitHub Actions on every PR: lint, typecheck, test, build, `npm audit --audit-level=high`. CodeQL scanning. `dependabot.yml` for grouped weekly npm + Actions updates. Coverage report (`@vitest/coverage-v8`) in CI, linked from `docs/testing.md`. Status badge in the README. Allow this project's Vercel preview origins in the API's CORS so PR previews can load data (needed before the Phase 2 UI reviews).
 
+## Phase 1.5: Visual refresh (before job applications)
+
+Added on 2026-10-25: the site is shown to recruiters before the MVP is done, so first impressions and a working mobile layout come first. It follows the Phase 2 decisions (dark theme, tokens, CSS Modules) so nothing is thrown away; routing, new pages and the full GameBoy redesign stay in Phase 2.
+
+- ⬜ **PR A – Tokens + page shell.** Colour, type and spacing tokens with the dark theme. Hero with a one-line pitch and calls to action, sticky nav, consistent section cards, footer with the tech stack and links. Mobile-first; CSS Modules for every restyled component.
+- ⬜ **PR B – GameBoy, charts and search.** A GameBoy that scales to any screen, themed charts that stack on mobile and resize correctly, and a styled search with type-coloured result cards.
+- ⬜ **PR C – First impressions.** README with screenshot, live link, tech stack and highlights. Page title, description and Open Graph image for link previews.
+
 ## Phase 1: Data & API
 
-- ⬜ **PR 7 – Richer data model + seeder.** Add species data (genus, flavour text), abilities, evolution chain and base stat total. Required/unique fields and indexes. Idempotent upsert seeder with limited concurrency.
+- 🚧 **PR 7 – Richer data model + seeder.** _(In progress on `feat/richer-data-model`, paused for Phase 1.5.)_ Add species data (genus, flavour text), abilities, evolution chain and base stat total. Required/unique fields and indexes. Idempotent upsert seeder with limited concurrency.
 - ⬜ **PR 8 – API v1.** `GET /api/v1/pokemon` with pagination, type filter, sorting and safe search. `GET /api/v1/pokemon/:id` including the evolution chain. `/api/v1/stats/*` built on aggregation pipelines. Cache headers. Tests for every endpoint.
 
 ## Phase 2: UI rework
