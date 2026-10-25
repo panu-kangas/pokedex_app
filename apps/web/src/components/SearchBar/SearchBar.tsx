@@ -1,31 +1,18 @@
-import { useState, type ChangeEvent, type CSSProperties } from 'react';
+import { useState, type FormEvent } from 'react';
 import type { Pokemon } from '@pokedex/shared';
 import { api } from '../../api/client';
-import typeColors from '../../constants/typeColors';
-import './SearchBar.css';
+import ResultCard from './ResultCard';
+import styles from './SearchBar.module.css';
 
 const MAX_SEARCH_LENGTH = 30;
-
-function cardBackground(pokemon: Pokemon): CSSProperties {
-  const [type1, type2] = pokemon.types;
-  if (type1 && type2) {
-    return {
-      background: `linear-gradient(130deg, ${typeColors[type1]} 50%, ${typeColors[type2]} 50%)`,
-    };
-  }
-  return { backgroundColor: type1 ? typeColors[type1] : undefined };
-}
-
-function capitalize(text: string): string {
-  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-}
 
 const SearchBar = () => {
   const [query, setQuery] = useState('');
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [firstResult, setFirstResult] = useState(false);
 
-  const clickSearch = async () => {
+  const search = async (event: FormEvent) => {
+    event.preventDefault();
     if (query.trim().length === 0) {
       setPokemonList([]);
       return;
@@ -42,47 +29,39 @@ const SearchBar = () => {
 
   const renderResults = () => {
     if (!firstResult) {
-      return <p className="no-results">No results yet</p>;
+      return <p className={styles.message}>No results yet</p>;
     }
 
     if (pokemonList.length === 0) {
-      return <p className="no-results">Pokémon not found</p>;
+      return <p className={styles.message}>Pokémon not found</p>;
     }
 
-    return pokemonList.map((pokemon) => (
-      <div key={pokemon.id} style={cardBackground(pokemon)} className="result-card">
-        <p>
-          {'#' + pokemon.id}
-          <br />
-          {capitalize(pokemon.name)}
-        </p>
-        <img src={pokemon.sprite} alt={pokemon.name} />
-      </div>
-    ));
-  };
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
+    return (
+      <ul className={styles.results}>
+        {pokemonList.map((pokemon) => (
+          <ResultCard key={pokemon.id} pokemon={pokemon} />
+        ))}
+      </ul>
+    );
   };
 
   return (
-    <div className="search-bar-div">
-      <input
-        className="input-field"
-        type="text"
-        value={query}
-        onChange={handleInputChange}
-        maxLength={MAX_SEARCH_LENGTH}
-        placeholder="Type Pokémon name..."
-      />
-
-      <br />
-
-      <button className="search-button" onClick={clickSearch}>
-        Search
-      </button>
-
-      <div className="results-div">{renderResults()}</div>
+    <div className={styles.search}>
+      <form className={styles.form} role="search" onSubmit={search}>
+        <input
+          className={styles.input}
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          maxLength={MAX_SEARCH_LENGTH}
+          placeholder="Type Pokémon name..."
+          aria-label="Pokémon name"
+        />
+        <button className={styles.button} type="submit">
+          Search
+        </button>
+      </form>
+      {renderResults()}
     </div>
   );
 };

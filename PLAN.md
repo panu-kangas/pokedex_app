@@ -51,7 +51,7 @@ Added on 2026-10-25: the site is shown to recruiters before the MVP is done, so 
 - ⬜ **PR 10 – App shell + routing.** React Router with a layout, responsive nav and a 404 page. TanStack Query for data fetching (caching, loading and error states). Pages: Home, Pokédex, Pokémon detail, Insights.
 - ⬜ **PR 11 – Pokédex browse page.** Responsive card grid, debounced live search, type filters and sorting, with state kept in the URL query params. Pagination or infinite scroll. Separate error state for failed requests (today an API failure shows "Pokémon not found").
 - ⬜ **PR 12 – Pokémon detail page.** `/pokemon/:id` with a stats chart, evolution chain, flavour text, prev/next links and keyboard navigation.
-- ⬜ **PR 13 – GameBoy redesign.** A polished, responsive GameBoy viewer as the home page centrepiece, with D-pad and keyboard controls and accessible labels.
+- ⬜ **PR 13 – GameBoy redesign.** A polished, responsive GameBoy viewer as the home page centrepiece, with D-pad and keyboard controls, a "go to number" input, and accessible labels.
 - ⬜ **PR 14 – Insights page.** Themed, responsive charts backed by the aggregation endpoints, plus new ones (e.g. average stats per type, base stat total distribution).
 - ⬜ **PR 15 – Polish + docs.** Accessibility and Lighthouse pass, mobile QA. README rewrite with screenshots/GIF, an architecture diagram, an API overview and local setup steps.
 

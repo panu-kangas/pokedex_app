@@ -18,11 +18,11 @@ describe('BigInfoCard', () => {
         { statName: 'attack', baseStat: 75 },
       ],
     });
-    const { container } = render(<BigInfoCard pokemon={pokemon} />);
+    render(<BigInfoCard pokemon={pokemon} />);
 
-    const widths = [...container.querySelectorAll<HTMLElement>('.stat-fill')].map(
-      (bar) => bar.style.width,
-    );
+    const widths = screen
+      .getAllByRole('meter')
+      .map((meter) => (meter.firstElementChild as HTMLElement).style.width);
     expect(widths).toEqual(['100%', '50%']);
   });
 });

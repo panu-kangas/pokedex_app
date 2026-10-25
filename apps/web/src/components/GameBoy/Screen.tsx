@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { Pokemon } from '@pokedex/shared';
 import { api } from '../../api/client';
 import InfoCard from './InfoCard';
@@ -7,6 +7,8 @@ import pokeballImage from '../../assets/pokeball.png';
 
 // Matches the .pokemon-image opacity transition in GameBoy.css
 const FADE_OUT_MS = 400;
+// Rapid presses only update the number; the fetch waits until they pause
+const SETTLE_MS = 300;
 
 function wait(ms: number, signal: AbortSignal): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -42,13 +44,21 @@ interface ScreenProps {
 
 const Screen = ({ currentId, isBig }: ScreenProps) => {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
-  const idChange = pokemon !== null && pokemon.id !== currentId;
+  const hasShown = useRef(false);
+  const pending = pokemon !== null && pokemon.id !== currentId;
 
   useEffect(() => {
     const controller = new AbortController();
+    const settle = hasShown.current ? SETTLE_MS : 0;
 
-    Promise.all([loadPokemon(currentId, controller.signal), wait(FADE_OUT_MS, controller.signal)])
-      .then(([next]) => setPokemon(next))
+    Promise.all([
+      wait(settle, controller.signal).then(() => loadPokemon(currentId, controller.signal)),
+      wait(FADE_OUT_MS, controller.signal),
+    ])
+      .then(([next]) => {
+        hasShown.current = true;
+        setPokemon(next);
+      })
       .catch((error: unknown) => {
         if (!controller.signal.aborted) console.error('Error fetching Pokémon:', error);
       });
@@ -74,16 +84,16 @@ const Screen = ({ currentId, isBig }: ScreenProps) => {
 
   return (
     <div className="screen">
-      <div className={`info-card ${isBig ? 'card-hidden' : 'card-visible'}`}>
+      <div className={`screen-layer ${isBig ? 'card-hidden' : 'card-visible'}`}>
         <InfoCard
-          id={`#${pokemon.id}`}
+          id={`#${currentId}`}
           name={pokemon.name}
           image={pokemon.sprite}
           type={pokemon.types}
-          idChange={idChange}
+          pending={pending}
         />
       </div>
-      <div className={`big-info-card-div ${!isBig ? 'card-hidden' : 'card-visible'}`}>
+      <div className={`screen-layer ${!isBig ? 'card-hidden' : 'card-visible'}`}>
         <BigInfoCard pokemon={pokemon} />
       </div>
     </div>

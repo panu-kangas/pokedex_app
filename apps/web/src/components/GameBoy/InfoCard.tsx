@@ -7,13 +7,13 @@ interface InfoCardProps {
   name: string;
   image: string;
   type: PokemonType[];
-  idChange: boolean;
+  pending: boolean;
 }
 
 const FALLBACK_COLOR = '#777';
 const TRANSITION = 'background 0.8s ease';
 
-const InfoCard = ({ id, name, image, type, idChange }: InfoCardProps) => {
+const InfoCard = ({ id, name, image, type, pending }: InfoCardProps) => {
   const [type1, type2] = type;
   const firstColor = type1 ? typeColors[type1] : FALLBACK_COLOR;
   // Single-type Pokémon reuse the first colour so the right half always exists and can transition
@@ -36,9 +36,11 @@ const InfoCard = ({ id, name, image, type, idChange }: InfoCardProps) => {
 
   return (
     <div className="info-card" style={backgroundStyle}>
-      <div className="pokemon-id">{id}</div>
-      <img src={image} alt={name} className={`pokemon-image ${idChange ? 'fade' : ''}`} />
-      <div className="pokemon-name">{name}</div>
+      <div className={`pokemon-id ${pending ? 'pending' : ''}`}>{id}</div>
+      <img src={image} alt={name} className={`pokemon-image ${pending ? 'fade' : ''}`} />
+      <div className={`pokemon-name ${pending ? 'pending' : ''}`} aria-hidden={pending}>
+        {name}
+      </div>
 
       <div style={secondHalfStyle}></div>
     </div>

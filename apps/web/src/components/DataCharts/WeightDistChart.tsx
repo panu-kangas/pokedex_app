@@ -1,42 +1,36 @@
 import { useEffect, useState } from 'react';
 import type { WeightDistribution } from '@pokedex/shared';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   ArcElement,
   Tooltip,
   Legend,
-  Title,
   type ChartData,
   type ChartOptions,
 } from 'chart.js';
 import { motion } from 'framer-motion';
 import { api } from '../../api/client';
-import './WeightDistChart.css';
+import { cardAnimation } from './chartTheme';
+import styles from './ChartCard.module.css';
 
-ChartJS.register(ArcElement, Tooltip, Legend, Title);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-const smallColor = '#F95587';
-const mediumColor = '#735797';
-const largeColor = '#F7D02C';
+const SIZES = [
+  { key: 'small', label: 'Small (≤ 30 kg)', color: '#f95587' },
+  { key: 'medium', label: 'Medium (30–70 kg)', color: '#8e6fd8' },
+  { key: 'large', label: 'Large (> 70 kg)', color: '#ffde00' },
+] as const;
 
-const chartOptions: ChartOptions<'pie'> = {
+const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
-  plugins: {
-    legend: {
-      position: 'bottom',
-      labels: {
-        color: '#444',
-        font: {
-          size: 14,
-        },
-      },
-    },
-  },
+  maintainAspectRatio: false,
+  cutout: '60%',
+  plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 16 } } },
 };
 
 function percentage(part: number, total: number): string {
-  return ((part / total) * 100).toFixed(2);
+  return ((part / total) * 100).toFixed(1);
 }
 
 const WeightDistChart = () => {
@@ -54,60 +48,43 @@ const WeightDistChart = () => {
   }, []);
 
   if (!data) {
-    return <div>Loading...</div>;
+    return <div className={styles.loading}>Loading weight data…</div>;
   }
 
-  const chartData: ChartData<'pie'> = {
-    labels: ['Small (0-30 kg)', 'Medium (30-70 kg)', 'Large (> 70 kg)'],
+  const total = data.small + data.medium + data.large;
+  const chartData: ChartData<'doughnut'> = {
+    labels: SIZES.map((size) => size.label),
     datasets: [
       {
-        data: [data.small, data.medium, data.large],
-        backgroundColor: [smallColor, mediumColor, largeColor],
-        borderColor: 'white',
-        borderWidth: 2,
+        data: SIZES.map((size) => data[size.key]),
+        backgroundColor: SIZES.map((size) => size.color),
+        borderColor: '#161935',
+        borderWidth: 4,
       },
     ],
   };
 
-  const total = data.small + data.medium + data.large;
-
-  const sizeBadge = (label: string, count: number, color: string) => (
-    <span style={{ padding: '5px', borderRadius: '10px', color: 'black', backgroundColor: color }}>
-      {`${label} Pokémon ${percentage(count, total)}%`}
-    </span>
-  );
-
   return (
-    <div style={{ overflowX: 'hidden' }}>
-      <motion.div
-        className="facts-container2"
-        initial={{ x: 100, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-      >
-        <div className="fun-fact-container2">
-          <h2 className="chart-header2">Fun facts</h2>
-          <p className="fact-paragraph">
-            {' '}
-            Pokémon Size Distribution by Percentage
-            <br />
-            <br />
-            {sizeBadge('Small', data.small, smallColor)} <br />
-            <br />
-            {sizeBadge('Medium', data.medium, mediumColor)} <br />
-            <br />
-            {sizeBadge('Large', data.large, largeColor)}
+    <motion.article className={styles.card} {...cardAnimation}>
+      <div>
+        <h3 className={styles.title}>Pokémon by weight</h3>
+        <div className={styles.chart}>
+          <Doughnut
+            data={chartData}
+            options={chartOptions}
+            aria-label="Doughnut chart of Pokémon by weight"
+          />
+        </div>
+      </div>
+      <aside className={styles.facts}>
+        {SIZES.map((size) => (
+          <p key={size.key}>
+            <strong style={{ color: size.color }}>{percentage(data[size.key], total)}%</strong> are{' '}
+            {size.label.toLowerCase()}
           </p>
-        </div>
-        <div className="chart-container2">
-          <h2 className="chart-header2">Weight Distribution</h2>
-          <div className="chart-wrapper2">
-            <Pie data={chartData} options={chartOptions} />
-          </div>
-        </div>
-      </motion.div>
-    </div>
+        ))}
+      </aside>
+    </motion.article>
   );
 };
 
