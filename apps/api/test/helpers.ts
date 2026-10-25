@@ -11,66 +11,49 @@ export function createTestApp(options: Partial<AppOptions> = {}) {
   return createApp({ corsOrigins: [ALLOWED_ORIGIN], ...options });
 }
 
-const stats = (hp: number) => [
-  { statName: 'hp', baseStat: hp },
-  { statName: 'attack', baseStat: 50 },
-];
+function makePokemon(
+  fields: Pick<Pokemon, 'id' | 'name' | 'types' | 'weight' | 'height'> & { hp: number },
+): Pokemon {
+  const { hp, ...rest } = fields;
+  return {
+    ...rest,
+    sprite: `s${fields.id}`,
+    artwork: `a${fields.id}`,
+    stats: [
+      { statName: 'hp', baseStat: hp },
+      { statName: 'attack', baseStat: 50 },
+    ],
+    baseStatTotal: hp + 50,
+    abilities: [{ name: 'test-ability', isHidden: false }],
+    genus: 'Test Pokémon',
+    flavorText: 'A Pokémon used in tests.',
+    isLegendary: false,
+    isMythical: false,
+    evolutionChainId: fields.id,
+  };
+}
 
 export const fixtures: Pokemon[] = [
-  {
+  makePokemon({
     id: 1,
     name: 'bulbasaur',
     types: ['grass', 'poison'],
-    sprite: 's1',
     weight: 69,
     height: 7,
-    stats: stats(45),
-  },
-  {
-    id: 4,
-    name: 'charmander',
-    types: ['fire'],
-    sprite: 's4',
-    weight: 85,
-    height: 6,
-    stats: stats(39),
-  },
-  {
+    hp: 45,
+  }),
+  makePokemon({ id: 4, name: 'charmander', types: ['fire'], weight: 85, height: 6, hp: 39 }),
+  makePokemon({
     id: 6,
     name: 'charizard',
     types: ['fire', 'flying'],
-    sprite: 's6',
     weight: 905,
     height: 17,
-    stats: stats(78),
-  },
-  {
-    id: 25,
-    name: 'pikachu',
-    types: ['electric'],
-    sprite: 's25',
-    weight: 60,
-    height: 4,
-    stats: stats(35),
-  },
-  {
-    id: 64,
-    name: 'kadabra',
-    types: ['psychic'],
-    sprite: 's64',
-    weight: 565,
-    height: 13,
-    stats: stats(40),
-  },
-  {
-    id: 143,
-    name: 'snorlax',
-    types: ['normal'],
-    sprite: 's143',
-    weight: 4600,
-    height: 21,
-    stats: stats(160),
-  },
+    hp: 78,
+  }),
+  makePokemon({ id: 25, name: 'pikachu', types: ['electric'], weight: 60, height: 4, hp: 35 }),
+  makePokemon({ id: 64, name: 'kadabra', types: ['psychic'], weight: 565, height: 13, hp: 40 }),
+  makePokemon({ id: 143, name: 'snorlax', types: ['normal'], weight: 4600, height: 21, hp: 160 }),
 ];
 
 export function useTestDb() {

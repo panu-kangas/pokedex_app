@@ -1,54 +1,43 @@
 import { config } from '../config.js';
 import { connectDb, disconnectDb } from '../db.js';
-import type { Pokemon, PokemonType } from '@pokedex/shared';
-import { PokemonModel } from '../models/pokemon.model.js';
+import { pokeApi } from '../seed/pokeapi.js';
+import { assertCompleteSeedData, toEvolutionChain, toPokemon } from '../seed/transform.js';
+import { upsertSeedData } from '../seed/write.js';
+import { mapWithConcurrency } from '../utils/map-with-concurrency.js';
 
 const POKEMON_COUNT = 151;
+const CONCURRENCY = 5;
 
-interface PokeApiPokemon {
-  id: number;
-  name: string;
-  weight: number;
-  height: number;
-  types: { type: { name: PokemonType } }[];
-  sprites: { front_default: string };
-  stats: { base_stat: number; stat: { name: string } }[];
-}
+async function seed({ dryRun }: { dryRun: boolean }) {
+  const ids = Array.from({ length: POKEMON_COUNT }, (_, i) => i + 1);
 
-async function fetchPokemon(id: number): Promise<Pokemon> {
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-  if (!response.ok) throw new Error(`PokéAPI returned ${response.status} for #${id}`);
-  const data = (await response.json()) as PokeApiPokemon;
+  const pokemon = await mapWithConcurrency(ids, CONCURRENCY, async (id) => {
+    const [data, species] = await Promise.all([pokeApi.pokemon(id), pokeApi.species(id)]);
+    return toPokemon(data, species);
+  });
+  const chainIds = [...new Set(pokemon.map((p) => p.evolutionChainId))];
+  const chains = await mapWithConcurrency(chainIds, CONCURRENCY, async (id) =>
+    toEvolutionChain(await pokeApi.chain(id)),
+  );
+  console.log(`Fetched ${pokemon.length} Pokémon and ${chains.length} evolution chains`);
 
-  return {
-    id: data.id,
-    name: data.name,
-    types: data.types.map((t) => t.type.name),
-    sprite: data.sprites.front_default,
-    weight: data.weight,
-    height: data.height,
-    stats: data.stats.map((s) => ({ statName: s.stat.name, baseStat: s.base_stat })),
-  };
-}
+  assertCompleteSeedData(pokemon, chains, POKEMON_COUNT);
 
-async function seed() {
-  await connectDb(config.mongoUri);
-
-  const pokemon: Pokemon[] = [];
-  for (let id = 1; id <= POKEMON_COUNT; id++) {
-    pokemon.push(await fetchPokemon(id));
-    console.log(`Loaded #${id} ${pokemon.at(-1)?.name}`);
+  if (dryRun) {
+    console.log('Dry run: data is complete and valid, nothing was written');
+    return;
   }
 
-  await PokemonModel.deleteMany({});
-  await PokemonModel.insertMany(pokemon);
-  console.log(`Seeded ${pokemon.length} Pokémon`);
+  await connectDb(config.mongoUri);
+  const result = await upsertSeedData(pokemon, chains);
+  console.log('Evolution chains:', result.chains);
+  console.log('Pokémon:', result.pokemon);
 }
 
 try {
-  await seed();
+  await seed({ dryRun: process.argv.includes('--dry-run') });
 } catch (err) {
-  console.error('Seeding failed:', err);
+  console.error('Seeding failed, the database was not changed:', err);
   process.exitCode = 1;
 } finally {
   await disconnectDb();

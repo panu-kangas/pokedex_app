@@ -1,0 +1,82 @@
+{
+  "id": 133,
+  "name": "eevee",
+  "is_legendary": false,
+  "is_mythical": false,
+  "evolution_chain": {
+    "url": "https://pokeapi.co/api/v2/evolution-chain/67/"
+  },
+  "genera": [
+    {
+      "genus": "Evolution Pokémon",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      }
+    },
+    {
+      "genus": "しんかポケモン",
+      "language": {
+        "name": "ja",
+        "url": "https://pokeapi.co/api/v2/language/11/"
+      }
+    }
+  ],
+  "flavor_text_entries": [
+    {
+      "flavor_text": "進化のとき　姿と　能力が\n変わることで　きびしい　環境に\n対応する　珍しい　ポケモン。",
+      "language": {
+        "name": "ja",
+        "url": "https://pokeapi.co/api/v2/language/11/"
+      },
+      "version": {
+        "name": "x",
+        "url": "https://pokeapi.co/api/v2/version/23/"
+      }
+    },
+    {
+      "flavor_text": "Its genetic code\nis irregular.\nIt may mutate if\fit is exposed to\nradiation from\nelement STONEs.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "red",
+        "url": "https://pokeapi.co/api/v2/version/1/"
+      }
+    },
+    {
+      "flavor_text": "Its genetic code\nis irregular.\nIt may mutate if\fit is exposed to\nradiation from\nelement STONEs.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "blue",
+        "url": "https://pokeapi.co/api/v2/version/2/"
+      }
+    },
+    {
+      "flavor_text": "Its genetic code\nis unstable, so it\ncould evolve in\fa variety of ways.\nThere are only a\nfew alive.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "yellow",
+        "url": "https://pokeapi.co/api/v2/version/3/"
+      }
+    },
+    {
+      "flavor_text": "It has the ability\nto alter the com­\nposition of its\fbody to suit its\nsurrounding envi­\nronment.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "gold",
+        "url": "https://pokeapi.co/api/v2/version/4/"
+      }
+    }
+  ]
+}
