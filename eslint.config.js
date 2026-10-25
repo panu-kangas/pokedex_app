@@ -8,7 +8,7 @@ import prettier from 'eslint-config-prettier';
 const unusedVarsOptions = { argsIgnorePattern: '^_' };
 
 export default [
-  { ignores: ['**/dist', '**/build', '**/node_modules'] },
+  { ignores: ['**/dist', '**/build', '**/node_modules', '**/coverage'] },
   js.configs.recommended,
   { rules: { 'no-unused-vars': ['error', unusedVarsOptions] } },
   ...tseslint.configs.recommended.map((cfg) => ({ ...cfg, files: ['**/*.{ts,tsx}'] })),
