@@ -8,6 +8,11 @@
   box-shadow: var(--shadow-card);
 }
 
+/* Grid items default to min-width: auto, so a wide canvas would stop them (and the chart) from shrinking back */
+.card > * {
+  min-width: 0;
+}
+
 .card + .card {
   margin-top: var(--space-6);
 }
@@ -21,6 +26,7 @@
 .chart {
   position: relative;
   height: 300px;
+  overflow: hidden;
 }
 
 .facts {

@@ -1,15 +1,6 @@
 import type { Pokemon } from '@pokedex/shared';
+import StatBars from '../StatBars/StatBars';
 import './BigInfoCard.css';
-
-const STAT_BAR_MAX = 150;
-const STAT_LABELS: Record<string, string> = {
-  hp: 'HP',
-  attack: 'ATK',
-  defense: 'DEF',
-  'special-attack': 'SP.ATK',
-  'special-defense': 'SP.DEF',
-  speed: 'SPD',
-};
 
 interface BigInfoCardProps {
   pokemon: Pokemon;
@@ -36,20 +27,7 @@ const BigInfoCard = ({ pokemon }: BigInfoCardProps) => {
         </div>
 
         <div className="big-card-right">
-          {pokemon.stats.map((stat) => (
-            <div key={stat.statName} className="stat-block">
-              <span className="stat-name">
-                {STAT_LABELS[stat.statName] ?? stat.statName.toUpperCase()}
-              </span>
-              <span className="stat-value">{stat.baseStat}</span>
-              <div className="stat-bar">
-                <div
-                  className="stat-fill"
-                  style={{ width: `${Math.min(stat.baseStat / STAT_BAR_MAX, 1) * 100}%` }}
-                ></div>
-              </div>
-            </div>
-          ))}
+          <StatBars stats={pokemon.stats} />
         </div>
       </div>
     </div>

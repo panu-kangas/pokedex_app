@@ -1,0 +1,107 @@
+.card {
+  position: relative;
+  perspective: 900px;
+  animation: rise 0.4s ease both;
+}
+
+.inner {
+  display: grid;
+  height: 100%;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.flipped .inner {
+  transform: rotateY(180deg);
+}
+
+/* Both faces share one grid cell, so the card is as tall as the taller face */
+.face {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  backface-visibility: hidden;
+}
+
+.front {
+  align-items: center;
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--type-1) 45%, transparent),
+      color-mix(in srgb, var(--type-2) 20%, transparent) 60%,
+      transparent
+    ),
+    var(--color-surface);
+}
+
+.back {
+  gap: var(--space-2);
+  background: var(--color-surface-raised);
+  transform: rotateY(180deg);
+}
+
+.toggle {
+  position: absolute;
+  inset: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: pointer;
+}
+
+.card:hover .inner {
+  translate: 0 -4px;
+}
+
+.front img {
+  image-rendering: pixelated;
+}
+
+.number {
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  color: var(--color-text-muted);
+}
+
+.name {
+  font-weight: 600;
+}
+
+.back .name {
+  text-align: center;
+}
+
+.types {
+  display: flex;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.hint {
+  margin-top: var(--space-2);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+.total {
+  margin-top: auto;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.total strong {
+  color: var(--color-text);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}

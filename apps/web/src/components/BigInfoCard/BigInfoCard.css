@@ -50,39 +50,5 @@
 }
 
 .big-card-right {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.stat-block {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  font-size: 0.65rem;
-}
-
-.stat-name {
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: #4a4c5c;
-}
-
-.stat-value {
-  font-weight: 600;
-}
-
-.stat-bar {
-  grid-column: 1 / -1;
-  height: 6px;
-  margin-top: 2px;
-  overflow: hidden;
-  border-radius: var(--radius-full);
-  background: #d9d5bd;
-}
-
-.stat-fill {
-  height: 100%;
-  border-radius: var(--radius-full);
-  background: var(--color-primary);
-  transition: width 0.3s ease-in-out;
+  min-width: 0;
 }

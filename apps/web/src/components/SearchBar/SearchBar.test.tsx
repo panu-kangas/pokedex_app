@@ -34,8 +34,10 @@ describe('SearchBar', () => {
     await searchFor('char');
 
     expect(searchMock).toHaveBeenCalledWith('char');
-    expect(await screen.findByText(/Charmander/)).toBeInTheDocument();
-    expect(screen.getByText(/Charizard/)).toBeInTheDocument();
+    expect(
+      await screen.findByRole('button', { name: 'Show stats for Charmander' }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Show stats for Charizard' })).toBeInTheDocument();
     expect(screen.getAllByRole('img')).toHaveLength(2);
   });
 
@@ -47,8 +49,26 @@ describe('SearchBar', () => {
     await user.type(screen.getByRole('searchbox', { name: 'Pokémon name' }), 'pika{Enter}');
 
     expect(searchMock).toHaveBeenCalledWith('pika');
-    expect(await screen.findByText('Pikachu')).toBeInTheDocument();
+    expect(
+      await screen.findByRole('button', { name: 'Show stats for Pikachu' }),
+    ).toBeInTheDocument();
     expect(screen.getByText('electric')).toBeInTheDocument();
+  });
+
+  it('flips a result card to show its stats', async () => {
+    searchMock.mockResolvedValue([makePokemon({ id: 4, name: 'charmander' })]);
+    const user = userEvent.setup();
+    await searchFor('char');
+
+    expect(screen.queryAllByRole('meter')).toHaveLength(0);
+    await user.click(await screen.findByRole('button', { name: 'Show stats for Charmander' }));
+
+    expect(screen.getAllByRole('meter')).toHaveLength(2);
+    expect(screen.getByText('91')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Hide stats for Charmander' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
   });
 
   it('does not call the API for a blank query', async () => {

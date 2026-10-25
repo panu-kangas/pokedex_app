@@ -1,21 +1,10 @@
-import { useState, type CSSProperties, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import type { Pokemon } from '@pokedex/shared';
 import { api } from '../../api/client';
-import typeColors from '../../constants/typeColors';
-import TypeBadge from '../TypeBadge/TypeBadge';
+import ResultCard from './ResultCard';
 import styles from './SearchBar.module.css';
 
 const MAX_SEARCH_LENGTH = 30;
-
-function cardColors(pokemon: Pokemon): CSSProperties {
-  const [type1, type2] = pokemon.types;
-  const first = type1 ? typeColors[type1] : '#777';
-  return { '--type-1': first, '--type-2': type2 ? typeColors[type2] : first } as CSSProperties;
-}
-
-function capitalize(text: string): string {
-  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-}
 
 const SearchBar = () => {
   const [query, setQuery] = useState('');
@@ -50,16 +39,7 @@ const SearchBar = () => {
     return (
       <ul className={styles.results}>
         {pokemonList.map((pokemon) => (
-          <li key={pokemon.id} className={styles.card} style={cardColors(pokemon)}>
-            <img src={pokemon.sprite} alt={pokemon.name} width={96} height={96} />
-            <span className={styles.number}>#{String(pokemon.id).padStart(3, '0')}</span>
-            <span className={styles.name}>{capitalize(pokemon.name)}</span>
-            <span className={styles.types}>
-              {pokemon.types.map((type) => (
-                <TypeBadge key={type} type={type} />
-              ))}
-            </span>
-          </li>
+          <ResultCard key={pokemon.id} pokemon={pokemon} />
         ))}
       </ul>
     );
