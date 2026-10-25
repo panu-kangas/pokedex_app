@@ -74,7 +74,7 @@ const Screen = ({ currentId, isBig }: ScreenProps) => {
 
   return (
     <div className="screen">
-      <div className={`info-card ${isBig ? 'card-hidden' : 'card-visible'}`}>
+      <div className={`screen-layer ${isBig ? 'card-hidden' : 'card-visible'}`}>
         <InfoCard
           id={`#${pokemon.id}`}
           name={pokemon.name}
@@ -83,7 +83,7 @@ const Screen = ({ currentId, isBig }: ScreenProps) => {
           idChange={idChange}
         />
       </div>
-      <div className={`big-info-card-div ${!isBig ? 'card-hidden' : 'card-visible'}`}>
+      <div className={`screen-layer ${!isBig ? 'card-hidden' : 'card-visible'}`}>
         <BigInfoCard pokemon={pokemon} />
       </div>
     </div>

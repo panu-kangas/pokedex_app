@@ -21,6 +21,9 @@ const GameBoy = () => {
 
   return (
     <div className="gameboy-box">
+      <p className="gameboy-label" aria-hidden="true">
+        POKéDEX
+      </p>
       <Screen currentId={currentId} isBig={isBig} />
       <ButtonRow
         onNext={handleNext}

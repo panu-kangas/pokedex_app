@@ -39,6 +39,18 @@ describe('SearchBar', () => {
     expect(screen.getAllByRole('img')).toHaveLength(2);
   });
 
+  it('searches when Enter is pressed', async () => {
+    searchMock.mockResolvedValue([makePokemon({ id: 25, name: 'pikachu', types: ['electric'] })]);
+    const user = userEvent.setup();
+    render(<SearchBar />);
+
+    await user.type(screen.getByRole('searchbox', { name: 'Pokémon name' }), 'pika{Enter}');
+
+    expect(searchMock).toHaveBeenCalledWith('pika');
+    expect(await screen.findByText('Pikachu')).toBeInTheDocument();
+    expect(screen.getByText('electric')).toBeInTheDocument();
+  });
+
   it('does not call the API for a blank query', async () => {
     await searchFor('   ');
 

@@ -5,9 +5,7 @@ import {
   Chart as ChartJS,
   CategoryScale,
   BarElement,
-  Title,
   Tooltip,
-  Legend,
   LinearScale,
   type ChartData,
   type ChartOptions,
@@ -15,26 +13,19 @@ import {
 import { motion } from 'framer-motion';
 import { api } from '../../api/client';
 import typeColors from '../../constants/typeColors';
-import './TypesCountChart.css';
+import TypeBadge from '../TypeBadge/TypeBadge';
+import { cardAnimation } from './chartTheme';
+import styles from './ChartCard.module.css';
 
-ChartJS.register(CategoryScale, BarElement, LinearScale, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, BarElement, LinearScale, Tooltip);
 
 const chartOptions: ChartOptions<'bar'> = {
   responsive: true,
   maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
+  plugins: { legend: { display: false } },
   scales: {
-    y: {
-      type: 'linear',
-      beginAtZero: true,
-      ticks: {
-        stepSize: 4,
-      },
-    },
+    x: { grid: { display: false } },
+    y: { beginAtZero: true, ticks: { stepSize: 5 } },
   },
 };
 
@@ -57,7 +48,7 @@ const TypesCountChart = () => {
   }, []);
 
   if (!data) {
-    return <div>Loading...</div>;
+    return <div className={styles.loading}>Loading type data…</div>;
   }
 
   const entries = Object.entries(data) as [PokemonType, number][];
@@ -77,57 +68,39 @@ const TypesCountChart = () => {
       {
         data: sortedEntries.map(([, count]) => count),
         backgroundColor: sortedEntries.map(([type]) => typeColors[type]),
-        borderColor: 'rgb(6, 30, 30)',
-        borderWidth: 1,
+        borderRadius: 6,
       },
     ],
   };
 
-  const typeBadge = (type: PokemonType) => (
-    <span
-      style={{
-        padding: '5px',
-        borderRadius: '10px',
-        color: 'white',
-        backgroundColor: typeColors[type],
-      }}
-    >
-      {capitalize(type)}
-    </span>
-  );
-
   return (
-    <motion.div
-      className="fact-container1"
-      initial={{ x: -100, opacity: 0 }}
-      whileInView={{ x: 0, opacity: 1 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-    >
-      <div className="chart-container1">
-        <h2 className="chart-header1">Type Distribution</h2>
-        <div className="chart-wrapper1">
-          <Bar data={chartData} options={chartOptions} />
+    <motion.article className={styles.card} {...cardAnimation}>
+      <div>
+        <h3 className={styles.title}>Pokémon per type</h3>
+        <div className={styles.chart}>
+          <Bar data={chartData} options={chartOptions} aria-label="Bar chart of Pokémon per type" />
         </div>
       </div>
-      <div className="fun-fact-container1">
-        <h2 className="chart-header1">Fun facts</h2>
+      <aside className={styles.facts}>
         {mostCommon && (
-          <p className="fact-paragraph">
-            {`The most common type (with ${mostCommon[1]} Pokémon) is:`}
-            <br />
-            {typeBadge(mostCommon[0])}
+          <p>
+            Most common type, with <strong>{mostCommon[1]} Pokémon</strong>
+            <span className={styles.factValue}>
+              <TypeBadge type={mostCommon[0]} />
+            </span>
           </p>
         )}
         {rarest && (
-          <p className="fact-paragraph">
-            {`The most rare type (with ${rarest[1]} Pokémon) is:`}
-            <br />
-            {typeBadge(rarest[0])}
+          <p>
+            Rarest type, with <strong>{rarest[1]} Pokémon</strong>
+            <span className={styles.factValue}>
+              <TypeBadge type={rarest[0]} />
+            </span>
           </p>
         )}
-      </div>
-    </motion.div>
+        <p>Dual-type Pokémon count once for each of their types.</p>
+      </aside>
+    </motion.article>
   );
 };
 
