@@ -36,9 +36,9 @@ Status: ⬜ todo · 🟨 in progress · ✅ merged
 
 Added on 2026-10-25: the site is shown to recruiters before the MVP is done, so first impressions and a working mobile layout come first. It follows the Phase 2 decisions (dark theme, tokens, CSS Modules) so nothing is thrown away; routing, new pages and the full GameBoy redesign stay in Phase 2.
 
-- ⬜ **PR A – Tokens + page shell.** Colour, type and spacing tokens with the dark theme. Hero with a one-line pitch and calls to action, sticky nav, consistent section cards, footer with the tech stack and links. Mobile-first; CSS Modules for every restyled component.
-- ⬜ **PR B – GameBoy, charts and search.** A GameBoy that scales to any screen, themed charts that stack on mobile and resize correctly, and a styled search with type-coloured result cards.
-- ⬜ **PR C – First impressions.** README with screenshot, live link, tech stack and highlights. Page title, description and Open Graph image for link previews.
+- ✅ **PR A – Tokens + page shell.** Colour, type and spacing tokens with the dark theme. Hero with a one-line pitch and calls to action, sticky nav, consistent section cards, footer with the tech stack and links. Mobile-first; CSS Modules for every restyled component.
+- ✅ **PR B – GameBoy, charts and search.** A GameBoy that scales to any screen, themed charts that stack on mobile and resize correctly, and a styled search with type-coloured result cards.
+- ✅ **PR C – First impressions.** README with screenshot, live link, tech stack and highlights. Page title, description and Open Graph image for link previews.
 
 ## Phase 1: Data & API
 
