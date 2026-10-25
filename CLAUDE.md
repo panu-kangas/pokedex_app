@@ -7,6 +7,7 @@ A fullstack Pokédex covering Gen I (151 Pokémon). Portfolio project, being ref
 - `packages/shared`: types shared by web and API (`Pokemon`, `PokemonType`, response shapes). Types only, no build step, so never put runtime code here.
 - `apps/web`: TypeScript, React 19 + Vite, Chart.js, Framer Motion. Deployed on Vercel (root dir `apps/web`; `build` typechecks first).
   - All HTTP calls go through `src/api/client.ts` (typed, throws `ApiError`, takes an `AbortSignal`).
+  - Styling: design tokens in `src/styles/tokens.css` (dark theme), a CSS Module per component, mobile-first. The GameBoy and `BigInfoCard` still use plain CSS because their tests query class names; they move to CSS Modules with the PR 13 redesign. `public/og-image.jpg` is the link-preview image.
 - `apps/api`: TypeScript, Express 5 + Mongoose (MongoDB Atlas), zod. Deployed on Render (from the repo root; build `npm ci --include=dev && npm run build -w apps/api`).
   - `src/`: `index.ts` (bootstrap + shutdown) → `app.ts` (`createApp`, middleware) → `routes/` → `controllers/` (zod validation) → `services/` (DB logic) → `models/`
   - Throw `HttpError` or let `ZodError` bubble; `middleware/error-handler.ts` maps them to responses.
