@@ -33,6 +33,7 @@ See `docs/testing.md` for strategy, gaps and conventions.
 - Vercel installs only the `apps/web` workspace's dependencies, so every workspace must declare the tools its own scripts use (e.g. `typescript`); never rely on root-hoisted packages.
 - Render tracks `main` (Build: `npm ci --include=dev && npm run build -w apps/api`, Start: `npm start`). A failed deploy keeps the previous version live.
 - Prod: web `https://pokedex-app-seven-tan.vercel.app`, API `https://pokedex-backend-o7nb.onrender.com` (check `/api/health` after deploys).
+- The API runs on a **paid Render instance**: it is always on and never sleeps. There are no cold starts, so don't add keep-alive pings or "waking up the server" UI.
 - Render's proxy chain is client → Cloudflare → Render load balancer, hence `trust proxy 2` (verified from prod logs). Changing it breaks per-client rate limiting; the tests in `app.test.ts` cover this.
 - API CORS allows only `CORS_ORIGIN` (comma-separated; `*` matches within one hostname label). Render's value includes `https://pokedex-app-*-panu-kangas-projects.vercel.app` so PR previews can load data.
 - CI (`.github/workflows/ci.yml`) must pass on PRs; CodeQL and Dependabot (weekly, grouped minor/patch) are also configured in `.github/`.
