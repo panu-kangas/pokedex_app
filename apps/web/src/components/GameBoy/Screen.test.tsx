@@ -106,6 +106,18 @@ describe('Screen', () => {
     expect(screen.getByText('#1')).toBeInTheDocument();
   });
 
+  // Chrome doesn't settle decode() for tabs that aren't being painted
+  it('stops waiting for a sprite that never finishes decoding', async () => {
+    decodeMock.mockReturnValueOnce(new Promise(() => {}));
+
+    render(<Screen currentId={1} isBig={false} />);
+    await advance(1000);
+    expect(screen.queryByText('#1')).not.toBeInTheDocument();
+
+    await advance(500);
+    expect(screen.getByText('#1')).toBeInTheDocument();
+  });
+
   it('aborts the in-flight request when the id changes', async () => {
     const signals: AbortSignal[] = [];
     getPokemonMock.mockImplementation((_id, signal) => {
