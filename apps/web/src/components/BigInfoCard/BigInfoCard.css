@@ -1,7 +1,9 @@
 .big-info-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  /* "safe" falls back to the top when the content is taller than the card, so nothing is cut off */
+  justify-content: safe center;
+  gap: var(--space-2);
   width: 100%;
   height: 100%;
   padding: var(--space-3);
@@ -12,43 +14,95 @@
   font-family: var(--font-body);
 }
 
+.big-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0 var(--space-3);
+  font-family: var(--font-pixel);
+}
+
+.big-card-number {
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+
 .big-card-name {
   margin: 0;
-  font-family: var(--font-pixel);
   font-size: 0.8rem;
-  text-align: center;
   text-transform: uppercase;
 }
 
 .big-card-body {
   display: grid;
-  grid-template-columns: 5rem 1fr;
+  grid-template-columns: clamp(4.5rem, 28%, 7rem) minmax(0, 1fr);
   gap: var(--space-3);
-  align-items: start;
-}
-
-.big-card-left {
-  display: flex;
-  flex-direction: column;
   align-items: center;
 }
 
 .big-card-image {
-  width: 5rem;
+  width: 100%;
   height: auto;
   image-rendering: pixelated;
+  /* PokéAPI sprites have wide transparent margins */
+  transform: scale(1.4);
 }
 
 .info-block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
   font-size: var(--text-sm);
   line-height: 1.4;
-  text-align: center;
 }
 
-.info-block p {
-  margin: 0 0 var(--space-1);
+.info-block div {
+  display: flex;
+  gap: 0.3em;
+  white-space: nowrap;
 }
 
-.big-card-right {
-  min-width: 0;
+.info-block dt {
+  font-weight: 700;
+}
+
+.info-block dd {
+  margin: 0;
+}
+
+.info-types {
+  text-transform: capitalize;
+}
+
+.big-card-name,
+.big-card-body,
+.info-block {
+  transition: opacity 0.25s ease;
+}
+
+.pending .big-card-name,
+.pending .big-card-body,
+.pending .info-block {
+  opacity: 0.25;
+}
+
+@media (min-width: 640px) {
+  .big-info-card {
+    gap: var(--space-4);
+  }
+
+  .big-card-number {
+    font-size: 0.8rem;
+  }
+
+  .big-card-name {
+    font-size: 0.95rem;
+  }
+
+  .info-block {
+    font-size: var(--text-base);
+  }
 }

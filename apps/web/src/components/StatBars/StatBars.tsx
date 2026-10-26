@@ -20,8 +20,14 @@ export function statLevel(value: number): StatLevel {
   return 'strong';
 }
 
-const StatBars = ({ stats }: { stats: PokemonStat[] }) => (
-  <ul className={styles.list}>
+interface StatBarsProps {
+  stats: PokemonStat[];
+  // Label, bar and value on one line, for tight spaces like the GameBoy screen
+  inline?: boolean;
+}
+
+const StatBars = ({ stats, inline = false }: StatBarsProps) => (
+  <ul className={`${styles.list} ${inline ? styles.inline : ''}`}>
     {stats.map(({ statName, baseStat }) => {
       const label = LABELS[statName] ?? statName.toUpperCase();
       return (

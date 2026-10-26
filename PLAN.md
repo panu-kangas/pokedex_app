@@ -40,6 +40,7 @@ Added on 2026-10-25: the site is shown to recruiters before the MVP is done, so 
 - ✅ **PR B – GameBoy, charts and search.** A GameBoy that scales to any screen, themed charts that stack on mobile and resize correctly, and a styled search with type-coloured result cards.
 - ✅ **PR C – First impressions.** README with screenshot, live link, tech stack and highlights. Page title, description and Open Graph image for link previews.
 - ✅ **PR D – Readability + background-tab fix.** Larger text in the stat views, search cards and GameBoy (new `--text-xs` floor), a wider GameBoy on desktop, and a decode timeout so the viewer no longer stays on "Loading…" in background tabs.
+- ✅ **PR E – Search cards + More info layout.** Bigger search card text with a visible "Tap for stats" pill. More info shows the number (updates instantly while browsing, the rest dims), vertically centred content, compact one-line stat rows, and height/weight/type on one or two lines under the stats.
 
 ## Phase 1: Data & API
 
