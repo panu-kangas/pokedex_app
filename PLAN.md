@@ -21,6 +21,11 @@ Status: ⬜ todo · 🟨 in progress · ✅ merged
 - `main` is auto-deployed (Vercel + Render), so every PR must leave production working.
 - After each PR: a short recap (what, why, interview talking points), then update this file and CLAUDE.md.
 
+## Next up
+
+1. **Review PRs 34–38 together, then a quiz.** Phase 1.5 was merged under time pressure, without the usual hand-written piece or explain-back. Panu reads each diff and asks questions, then gets a quiz on it.
+2. **Resume PR 7.** It's on `feat/richer-data-model` (pushed, no PR yet). Rebase it onto `main` first (it predates PRs 34–38; expect a PLAN.md conflict only). Panu finishes the hand-written `cleanFlavorText` (WIP commit with its tests), then review, a real `--dry-run`, and open the PR.
+
 ## Phase 0: Foundations
 
 - ✅ **PR 1 – Security hotfixes.** Stop logging `MONGO_URI`. Escape and length-limit the search regex. Add a generic error handler (no raw errors sent to clients), `helmet` and rate limiting. Read the CORS origin from an env var so local development works.
@@ -55,6 +60,11 @@ Added on 2026-10-25: the site is shown to recruiters before the MVP is done, so 
 - ⬜ **PR 12 – Pokémon detail page.** `/pokemon/:id` with a stats chart, evolution chain, flavour text, prev/next links and keyboard navigation.
 - ⬜ **PR 13 – GameBoy redesign.** A polished, responsive GameBoy viewer as the home page centrepiece, with D-pad and keyboard controls, a "go to number" input, and accessible labels.
 - ⬜ **PR 14 – Insights page.** Themed, responsive charts backed by the aggregation endpoints, plus new ones (e.g. average stats per type, base stat total distribution).
+- ⬜ **PR 14b – Compare tool** _(idea from 2026-10-26, needs refinement; probably split into 2–3 small PRs)._ A section/page with two empty slots side by side. Clicking a slot opens a big picker pop-up listing all 151, with search and type filter. Once both slots are filled, show the stat differences between the cards: per stat, both values with the difference in the middle as a green ▲ / red ▼ and the amount, plus the base stat total.
+  - Extras: swap sides, clear a slot, random pair, the pair kept in the URL (`?a=25&b=6`) so it can be shared, maybe a radar chart overlay (Chart.js is already in).
+  - Depends on PR 8 (list endpoint; 151 is small enough to fetch once and filter client-side). A `/compare` route needs PR 10.
+  - Open questions: arrows from whose point of view (left vs right, or per side)? Phone layout (stacked cards or narrow side-by-side)? Should the picker reuse the PR 11 browse grid?
+  - Pieces Panu can hand-write: a pure `compareStats(a, b)` with tests; the picker's search + type filter function; parsing and validating the `?a=&b=` params; keyboard navigation in the picker.
 - ⬜ **PR 15 – Polish + docs.** Accessibility and Lighthouse pass, mobile QA. README rewrite with screenshots/GIF, an architecture diagram, an API overview and local setup steps.
 
 **→ MVP complete**
@@ -63,7 +73,7 @@ Added on 2026-10-25: the site is shown to recruiters before the MVP is done, so 
 
 - Auth: register/login, httpOnly-cookie sessions or JWT, password hashing
 - Favourites and a team builder (6 Pokémon) with type-coverage analysis
-- Compare tool and type matchup calculator
+- Type matchup calculator
 - E2E tests (Playwright), OpenAPI docs, Docker Compose for local development
 - More generations, server-side caching
 - Optional load testing: an `autocannon` or k6 script run locally (never against prod or in CI), with results written up, e.g. p95 latency before/after indexes
