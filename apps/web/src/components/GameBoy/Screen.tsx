@@ -104,7 +104,7 @@ const Screen = ({ currentId, isBig }: ScreenProps) => {
         />
       </div>
       <div className={`screen-layer ${!isBig ? 'card-hidden' : 'card-visible'}`}>
-        <BigInfoCard pokemon={pokemon} />
+        <BigInfoCard pokemon={pokemon} number={currentId} pending={pending} />
       </div>
     </div>
   );

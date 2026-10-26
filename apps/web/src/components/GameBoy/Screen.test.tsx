@@ -71,6 +71,15 @@ describe('Screen', () => {
     expect(nameLabel()).not.toHaveClass('pending');
   });
 
+  it('updates the number in the More info view immediately too', async () => {
+    const { rerender } = await renderShowing(1);
+
+    rerender(<Screen currentId={2} isBig />);
+
+    expect(screen.getByText('#002')).toBeInTheDocument();
+    expect(document.querySelector('.big-info-card')).toHaveClass('pending');
+  });
+
   it('keeps the old sprite faded out for the full fade duration even when data is instant', async () => {
     const { rerender } = await renderShowing(1);
 

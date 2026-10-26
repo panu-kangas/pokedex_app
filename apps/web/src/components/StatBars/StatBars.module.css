@@ -32,6 +32,22 @@
   background: rgb(128 128 128 / 0.25);
 }
 
+.inline .row {
+  grid-template-columns: 3.6em minmax(0, 1fr) 2em;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.inline .value {
+  text-align: right;
+}
+
+.inline .track {
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 0;
+}
+
 .fill {
   height: 100%;
   border-radius: var(--radius-full);
@@ -48,4 +64,14 @@
 
 .fill[data-level='strong'] {
   background: #43c06b;
+}
+
+@media (min-width: 640px) {
+  .inline {
+    gap: 0.6em;
+  }
+
+  .inline .row {
+    font-size: var(--text-base);
+  }
 }
