@@ -9,6 +9,7 @@ import pokeballImage from '../../assets/pokeball.png';
 const FADE_OUT_MS = 400;
 // Rapid presses only update the number; the fetch waits until they pause
 const SETTLE_MS = 300;
+const DECODE_TIMEOUT_MS = 1500;
 
 function wait(ms: number, signal: AbortSignal): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -24,11 +25,20 @@ function wait(ms: number, signal: AbortSignal): Promise<void> {
   });
 }
 
-// Swapping <img src> before the new sprite is downloaded makes Chrome keep painting the old one
+// Swapping <img src> before the new sprite is downloaded makes Chrome keep painting the old one.
+// Chrome doesn't settle decode() in tabs that aren't being painted, so stop waiting after a while.
 async function preloadImage(src: string): Promise<void> {
   const image = new Image();
   image.src = src;
-  await image.decode();
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<void>((resolve) => {
+    timer = setTimeout(resolve, DECODE_TIMEOUT_MS);
+  });
+  try {
+    await Promise.race([image.decode(), timeout]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 async function loadPokemon(id: number, signal: AbortSignal): Promise<Pokemon> {

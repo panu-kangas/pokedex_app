@@ -1,7 +1,7 @@
 .big-info-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-1);
   width: 100%;
   height: 100%;
   padding: var(--space-3);
@@ -15,14 +15,14 @@
 .big-card-name {
   margin: 0;
   font-family: var(--font-pixel);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   text-align: center;
   text-transform: uppercase;
 }
 
 .big-card-body {
   display: grid;
-  grid-template-columns: 5.5rem 1fr;
+  grid-template-columns: 5rem 1fr;
   gap: var(--space-3);
   align-items: start;
 }
@@ -34,13 +34,13 @@
 }
 
 .big-card-image {
-  width: 5.5rem;
+  width: 5rem;
   height: auto;
   image-rendering: pixelated;
 }
 
 .info-block {
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   line-height: 1.4;
   text-align: center;
 }

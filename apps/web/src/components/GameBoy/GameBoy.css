@@ -17,7 +17,7 @@
 .gameboy-label {
   margin: 0;
   font-family: var(--font-pixel);
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-align: center;
   color: rgb(0 0 0 / 0.45);
@@ -90,11 +90,11 @@
 }
 
 .pokemon-id {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
 }
 
 .pokemon-name {
-  font-size: clamp(0.65rem, 2.8vw, 0.8rem);
+  font-size: clamp(0.75rem, 3.2vw, 0.9rem);
   text-transform: uppercase;
 }
 
@@ -157,13 +157,13 @@
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-full);
   font-family: var(--font-pixel);
-  font-size: 0.6rem;
+  font-size: 0.7rem;
 }
 
 /* Load screen */
 
 .load-text-div {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
 }
 
 .dot {
@@ -237,5 +237,11 @@
   75% {
     top: 8px;
     left: calc(100% - 34px);
+  }
+}
+
+@media (min-width: 640px) {
+  .gameboy-box {
+    width: min(100%, 440px);
   }
 }
