@@ -84,3 +84,4 @@ Dependabot is told to ignore these majors, so nothing reminds us; check now and 
 
 - **TypeScript 7** (closed #31): wait until `typescript-eslint` supports it (its peer range is `<6.1.0` as of 8.72.0).
 - **ESLint 10** (closed #29): `eslint-plugin-react` only supports ESLint ≤ 9 and is no longer released. Chore PR: swap it for `@eslint-react/eslint-plugin`, then upgrade ESLint and `@eslint/js`.
+- **Node 22 → 24** (closed #51, `@types/node` 26): Node is pinned to `22.x` (`engines`, CI), and `@types/node` majors are ignored in `dependabot.yml` so the types match the runtime. **Node 22 stops getting security updates on 2027-04-30**: upgrade before then in one PR that bumps `engines`, both `node-version` lines in `ci.yml` and `@types/node` together.

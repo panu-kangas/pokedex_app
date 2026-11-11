@@ -37,6 +37,7 @@ See `docs/testing.md` for strategy, gaps and conventions.
 - The API runs on a **paid Render instance**: it is always on and never sleeps. There are no cold starts, so don't add keep-alive pings or "waking up the server" UI.
 - Render's proxy chain is client → Cloudflare → Render load balancer, hence `trust proxy 2` (verified from prod logs). Changing it breaks per-client rate limiting; the tests in `app.test.ts` cover this.
 - API CORS allows only `CORS_ORIGIN` (comma-separated; `*` matches within one hostname label). Render's value includes `https://pokedex-app-*-panu-kangas-projects.vercel.app` so PR previews can load data.
+- Node is pinned to 22 (`engines` `22.x`, which Render follows, and CI). `@types/node` must stay on the same major, so Dependabot ignores its majors. Node 22 loses security support on 2027-04-30; see PLAN.md "Held dependency upgrades".
 - CI (`.github/workflows/ci.yml`) must pass on PRs; CodeQL and Dependabot (weekly, grouped minor/patch) are also configured in `.github/`.
 - When a PR changes Vercel/Render settings, tell the user exactly what to change and when (usually right after merging).
 
